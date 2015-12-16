@@ -1,0 +1,19 @@
+{
+  "name": "adversaria",
+  "version": "0.0.0",
+  "description": "Git-based note app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ueokande/adversaria.git"
+  },
+  "author": "Shin'ya Ueoka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ueokande/adversaria/issues"
+  },
+  "homepage": "https://github.com/ueokande/adversaria#readme"
+}
