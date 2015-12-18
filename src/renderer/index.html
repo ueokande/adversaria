@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="adversaria">
   <head>
     <meta charset="UTF-8">
+    <link href="style.css" rel="stylesheet" />
     <title>First Electron App</title>
   </head>
-  <body>
-    <h1>Hello, electron!</h1>
+  <body ng-controller="MainController as main">
+    <ul class='file_list'>
+      <li class='file_item' ng-repeat='entry in main.file_items'>
+        <a ng-if='entry.file' ng-click='main.select_file(entry.name)'>{{entry.name}}</a>
+        <a ng-if='entry.directory' ng-click='main.select_directory(entry.name)'>{{entry.name}}</a>
+      </li>
+    </ul>
 
+    <div class='md_preview'>
+      <p class='title'>{{main.current_note.title}}</p>
+      <div class='content' md-preview='main.current_note.markdown'></div>
+      <p class='path'>{{main.current_note.path}}</p>
+    </div>
+
+    <script src="../../bower_components/angular/angular.js"></script>
+    <script src="main_controller.js"></script>
     <script>require('electron-connect').client.create()</script>
   </body>
 </html>
