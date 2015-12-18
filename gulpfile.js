@@ -1,6 +1,9 @@
 var gulp = require('gulp');
+var taskListing = require('gulp-task-listing');
 var tsd = require('gulp-tsd');
 var typescript = require('gulp-typescript');
+
+gulp.task('help', taskListing);
 
 gulp.task('build', ['build:clone',
                     'build:typescript']);
