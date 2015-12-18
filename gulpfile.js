@@ -1,6 +1,10 @@
 var gulp = require('gulp');
+var taskListing = require('gulp-task-listing');
+var bower = require('gulp-bower');
 var tsd = require('gulp-tsd');
 var typescript = require('gulp-typescript');
+
+gulp.task('help', taskListing);
 
 gulp.task('build', ['build:clone',
                     'build:typescript']);
@@ -22,7 +26,12 @@ gulp.task('build:clone', function() {
   .pipe(gulp.dest('build'));
 });
 
-gulp.task('install', ['install:tsd']);
+gulp.task('install', ['install:bower', 'install:tsd']);
+
+gulp.task('install:bower', function() {
+  return bower();
+});
+
 gulp.task('install:tsd', function(callback) {
   tsd({ command: 'reinstall',
         config: 'tsd.json'
