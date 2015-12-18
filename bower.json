@@ -13,5 +13,11 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "angular": "~1.4.8"
+  },
+  "dependencies": {
+    "angular": "~1.4.8"
+  }
 }
