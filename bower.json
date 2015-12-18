@@ -1,0 +1,17 @@
+{
+  "name": "adversaria",
+  "homepage": "https://github.com/ueokande/adversaria",
+  "authors": [
+    "Shin'ya Ueoka <ueokande@i-beam.org>"
+  ],
+  "description": "Git-based note app",
+  "main": "src/main.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

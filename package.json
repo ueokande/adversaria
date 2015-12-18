@@ -1,0 +1,31 @@
+{
+  "name": "adversaria",
+  "version": "0.0.0",
+  "description": "Git-based note app",
+  "main": "build/main.js",
+  "scripts": {
+    "postinstall": "gulp install",
+    "build": "gulp build",
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ueokande/adversaria.git"
+  },
+  "author": "Shin'ya Ueoka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ueokande/adversaria/issues"
+  },
+  "homepage": "https://github.com/ueokande/adversaria#readme",
+  "devDependencies": {
+    "bower": "^1.7.1",
+    "electron-prebuilt": "^0.36.0",
+    "gulp": "^3.9.0",
+    "gulp-tsd": "0.0.4",
+    "gulp-typescript": "^2.10.0",
+    "tsd": "^0.6.5",
+    "typescript": "^1.7.5"
+  }
+}
