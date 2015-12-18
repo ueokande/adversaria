@@ -4,9 +4,9 @@
   "description": "Git-based note app",
   "main": "build/main.js",
   "scripts": {
-    "start": "electron .",
-    "prestart": "gulp build",
+    "postinstall": "gulp install",
     "build": "gulp build",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,6 +22,10 @@
   "devDependencies": {
     "bower": "^1.7.1",
     "electron-prebuilt": "^0.36.0",
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "gulp-tsd": "0.0.4",
+    "gulp-typescript": "^2.10.0",
+    "tsd": "^0.6.5",
+    "typescript": "^1.7.5"
   }
 }
