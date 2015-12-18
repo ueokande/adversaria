@@ -1,21 +1,21 @@
-'use strict';
+///<reference path='../typings/tsd.d.ts'/>
 
-var app = require('app');
+import app = require('app');
 var BrowserWindow = require('browser-window');
 var Menu = require('menu');
 
 require('crash-reporter').start();
 
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () => {
   if (process.platform != 'darwin') {
     app.quit();
   }
 });
 
-app.on('ready', function() {
+app.on('ready', () => {
   var win = new BrowserWindow({width: 800, height: 600});
   win.loadUrl('file://' + __dirname + '/index.html');
-  win.on('closed', function () {
+  win.on('closed', () => {
     win = null;
   });
 });
