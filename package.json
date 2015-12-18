@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ueokande/adversaria/issues"
   },
-  "homepage": "https://github.com/ueokande/adversaria#readme"
+  "homepage": "https://github.com/ueokande/adversaria#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.0"
+  }
 }
