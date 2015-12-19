@@ -1,6 +1,6 @@
 ///<reference path='../typings/tsd.d.ts'/>
 
-import app = require('app');
+var app = require('app');
 var BrowserWindow = require('browser-window');
 var Menu = require('menu');
 
