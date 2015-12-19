@@ -26,6 +26,10 @@ gulp.task('build:clone', function() {
   .pipe(gulp.dest('build'));
 });
 
+gulp.task('watch', function(){
+  gulp.watch('src/**/*.{ts,html,css,js}', ['build']);
+});
+
 gulp.task('install', ['install:bower', 'install:tsd']);
 
 gulp.task('install:bower', function() {

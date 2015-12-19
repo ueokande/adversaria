@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "gulp install",
     "build": "gulp build",
+    "watch": "gulp watch",
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
