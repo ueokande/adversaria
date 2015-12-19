@@ -2,7 +2,7 @@
   "name": "adversaria",
   "version": "0.0.0",
   "description": "Git-based note app",
-  "main": "build/main.js",
+  "main": "build/browser/main.js",
   "scripts": {
     "postinstall": "gulp install",
     "build": "gulp build",

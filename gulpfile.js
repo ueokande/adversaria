@@ -20,7 +20,7 @@ gulp.task('build:typescript', function(){
 
 gulp.task('build:clone', function() {
   return gulp.src(
-    ['src/*.html', 'src/*.js'],
+    ['src/**/*.html', 'src/**/*.css', 'src/**/*.js'],
     { base: 'src' }
   )
   .pipe(gulp.dest('build'));
