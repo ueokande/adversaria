@@ -20,14 +20,20 @@ gulp.task('build:typescript', function(){
 
 gulp.task('build:clone', function() {
   return gulp.src(
-    ['src/**/*.html', 'src/**/*.css', 'src/**/*.js'],
+    ['src/**/*.{html,css,js}'],
     { base: 'src' }
   )
   .pipe(gulp.dest('build'));
 });
 
-gulp.task('watch', function(){
-  gulp.watch('src/**/*.{ts,html,css,js}', ['build']);
+gulp.task('watch', ['watch:typescript', 'watch:clone']);
+
+gulp.task('watch:typescript', function(){
+  gulp.watch('src/**/*.ts', ['build:typescript']);
+});
+
+gulp.task('watch:clone', function(){
+  gulp.watch('src/**/*.{html,css}', ['build:clone']);
 });
 
 gulp.task('install', ['install:bower', 'install:tsd']);
