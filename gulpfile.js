@@ -8,35 +8,33 @@ var mocha = require('gulp-mocha');
 
 gulp.task('help', taskListing);
 
-gulp.task('build', ['build:clone',
-                    'build:typescript']);
 
-gulp.task('build:typescript', function(){
-  gulp.src(['src/**/*.ts'])
+['browser', 'renderer'].forEach(function(dir){
+  var typescript_glob = 'src/' + dir + '/**/*.ts';
+  var static_glob = 'src/' + dir + '/**/*.{html,css,js}';
+
+  gulp.task('build:' + dir, function(){
+    gulp.src([typescript_glob])
     .pipe(typescript({ target: 'es5',
                        module: 'commonjs',
                        sourceMap: true }))
     .js
+    .pipe(gulp.dest('build/' + dir));
+
+    gulp.src(
+      [static_glob],
+      { base: 'src' }
+    )
     .pipe(gulp.dest('build'));
+  });
+
+  gulp.task('watch:' + dir, function(){
+    gulp.watch([typescript_glob, static_glob], ['build:' + dir]);
+  });
 });
 
-gulp.task('build:clone', function() {
-  return gulp.src(
-    ['src/**/*.{html,css,js}'],
-    { base: 'src' }
-  )
-  .pipe(gulp.dest('build'));
-});
-
-gulp.task('watch', ['watch:typescript', 'watch:clone']);
-
-gulp.task('watch:typescript', function(){
-  gulp.watch('src/**/*.ts', ['build:typescript']);
-});
-
-gulp.task('watch:clone', function(){
-  gulp.watch('src/**/*.{html,css}', ['build:clone']);
-});
+gulp.task('watch', ['watch:browser', 'watch:renderer']);
+gulp.task('build', ['build:browser', 'build:renderer']);
 
 gulp.task('build:test', ['build'], function() {
   gulp.src(['test/**/*.ts'])
