@@ -9,7 +9,7 @@
     "watch": "gulp watch",
     "serve": "gulp serve",
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
@@ -23,13 +23,16 @@
   "homepage": "https://github.com/ueokande/adversaria#readme",
   "devDependencies": {
     "bower": "^1.7.1",
+    "chai": "^3.4.1",
     "electron-connect": "^0.3.3",
     "electron-prebuilt": "^0.36.0",
     "gulp": "^3.9.0",
     "gulp-bower": "0.0.11",
+    "gulp-mocha": "^2.2.0",
     "gulp-task-listing": "^1.0.1",
     "gulp-tsd": "0.0.4",
     "gulp-typescript": "^2.10.0",
+    "mocha": "^2.3.4",
     "tsd": "^0.6.5",
     "typescript": "^1.7.5"
   }

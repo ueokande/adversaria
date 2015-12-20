@@ -4,6 +4,7 @@ var bower = require('gulp-bower');
 var tsd = require('gulp-tsd');
 var typescript = require('gulp-typescript');
 var electron = require('electron-connect').server.create();
+var mocha = require('gulp-mocha');
 
 gulp.task('help', taskListing);
 
@@ -35,6 +36,25 @@ gulp.task('watch:typescript', function(){
 
 gulp.task('watch:clone', function(){
   gulp.watch('src/**/*.{html,css}', ['build:clone']);
+});
+
+gulp.task('build:test', ['build'], function() {
+  gulp.src(['test/**/*.ts'])
+    .pipe(typescript({ target: 'es5',
+                       module: 'commonjs',
+                       sourceMap: true }))
+    .js
+    .pipe(gulp.dest('test-build'));
+  return gulp.src(
+    ['test/**/*.js', 'test/testdata/*'],
+    { base: 'test' }
+  )
+  .pipe(gulp.dest('test-build'));
+});
+
+gulp.task('test', ['build:test'], function() {
+  return gulp.src(['test-build/**/*_test.js'], { read: false })
+    .pipe(mocha({ reporter: 'dot'}));
 });
 
 gulp.task('serve', ['watch'], function () {

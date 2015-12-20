@@ -1,5 +1,6 @@
 *.log
 
+/test-build
 /build
 
 node_modules
