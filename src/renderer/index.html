@@ -7,9 +7,17 @@
   </head>
   <body ng-controller="MainController as main">
     <ul class='file_list'>
-      <li class='file_item' ng-repeat='entry in main.file_items'>
-        <a ng-if='entry.file' ng-click='main.select_file(entry.name)'>{{entry.name}}</a>
-        <a ng-if='entry.directory' ng-click='main.select_directory(entry.name)'>{{entry.name}}</a>
+      <li class='file_item directory'
+          ng-if='entry.directory'
+          ng-click='main.select_directory(entry.name)'
+          ng-repeat='entry in main.file_items'>
+        {{entry.name}}
+      </li>
+      <li class='file_item file'
+          ng-if='entry.file'
+          ng-click='main.select_file(entry.name)'
+          ng-repeat='entry in main.file_items'>
+        {{entry.name}}
       </li>
     </ul>
 
