@@ -4,6 +4,8 @@ var remote = require('remote');
 var fs = require('fs');
 var path = require('path');
 var ngModule = angular.module('adversaria', []);
+var settings = remote.require('../browser/user_settings');
+require('./user_settings_dialog');
 
 ngModule.controller('MainController', function () {
   var main = this;
@@ -42,3 +44,8 @@ ngModule.directive('mdPreview', () => {
   };
 });
 
+window.onload = () => {
+  if (!settings.loadDocumentPath()) {
+    UserSettingsDialog.show();
+  }
+}
