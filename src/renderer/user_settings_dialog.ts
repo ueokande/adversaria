@@ -2,6 +2,7 @@
 
 var remote = require('remote')
 var dialog = remote.require('dialog');
+var settings = remote.require('../browser/user_settings');
 
 namespace UserSettingsDialog {
 
@@ -23,6 +24,7 @@ namespace UserSettingsDialog {
     dialog.showOpenDialog(options, function(filenames) {
       var input = (<HTMLInputElement>document.getElementById('documentDirectory'));
       input.value = filenames[0];
+      settings.saveDocumentPath(filenames[0]);
     });
   }
 }
