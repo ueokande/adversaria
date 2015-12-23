@@ -1,4 +1,4 @@
-///<reference path='../../typings/tsd.d.ts'/>
+///<reference path='user_settings_dialog.ts'/>
 
 var remote = require('remote');
 var fs = require('fs');

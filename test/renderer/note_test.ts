@@ -1,5 +1,3 @@
-///<reference path='../../typings/tsd.d.ts'/>
-
 var Note = require('../../build/renderer/note')
 var assert = require('chai').assert;
 
