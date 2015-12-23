@@ -26,6 +26,5 @@ window.onload = () => {
     UserSettingsDialog.show();
   }
   var scope: any = angular.element(document.getElementById('navigator')).scope();
-  scope.current_directory = document_path;
-  scope.select_directory('.');
+  scope.setRootDirectory(document_path);
 }

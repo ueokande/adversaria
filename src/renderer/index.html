@@ -7,9 +7,12 @@
   </head>
   <body ng-controller="MainController">
     <ul id='navigator' class='file_list' ng-controller="NavigatorController">
+      <li class='file_item parent'
+          ng-if='!isRootDirectory()'
+          ng-click='selectParentDirectory()'></li>
       <li class='file_item directory'
           ng-if='entry.directory'
-          ng-click='select_directory(entry.name)'
+          ng-click='selectDirectory(entry.name)'
           ng-repeat='entry in file_items'>
         {{entry.name}}
       </li>

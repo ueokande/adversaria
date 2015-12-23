@@ -5,17 +5,24 @@ interface MainScope extends ng.IScope {
   current_directory: string;
   file_items: any[];
 
-  select_directory: Function;
+  selectDirectory: Function;
+  selectParentDirectory: Function;
+  setRootDirectory: Function;
+  isRootDirectory: Function;
 }
 
 export = class MainController {
-  constructor(private $scope: MainScope) {
-    $scope.select_directory = angular.bind(this, this.select_directory);
+  private rootDirectory: string;
 
-    this.$scope.current_directory = '/';
+  constructor(private $scope: MainScope) {
+    $scope.selectDirectory = angular.bind(this, this.selectDirectory);
+    $scope.selectParentDirectory = angular.bind(this, this.selectParentDirectory);
+    $scope.setRootDirectory = angular.bind(this, this.setRootDirectory);
+    $scope.isRootDirectory = angular.bind(this, this.isRootDirectory);
+    $scope.current_directory = null;
   }
 
-  select_directory(dir): void{
+  selectDirectory(dir): void {
     var next_path = path.join(this.$scope.current_directory, dir);
     this.$scope.current_directory = next_path;
     this.$scope.file_items = [];
@@ -32,5 +39,19 @@ export = class MainController {
       });
       this.$scope.$apply();
     });
+  }
+
+  selectParentDirectory(): void {
+    this.selectDirectory('..');
+  }
+
+  setRootDirectory(directory: string): void {
+    this.rootDirectory = directory;
+    this.$scope.current_directory = directory;
+    this.selectDirectory('.');
+  }
+
+  isRootDirectory(): boolean {
+    return this.rootDirectory && (this.rootDirectory == this.$scope.current_directory)
   }
 }
