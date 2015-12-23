@@ -1,51 +1,53 @@
-///<reference path='user_settings_dialog.ts'/>
-
 var remote = require('remote');
 var fs = require('fs');
 var path = require('path');
-var ngModule = angular.module('adversaria', []);
-var settings = remote.require('../browser/user_settings');
-require('./user_settings_dialog');
 
-ngModule.controller('MainController', function () {
-  var main = this;
+interface MainScope extends ng.IScope {
+  current_directory: string;
+  current_file: string;
+  current_note: any;
+  file_items: any[];
 
-  main.current_directory = '/';
-  main.current_file = '';
-  main.current_note = {
-    title: 'Hello adversaria',
-    markdown: '# What is adversaria\nRefer [repository](https://github.com/ueokande/adversaria)>.',
-    path: ''
-  };
+  select_directory: Function;
+  select_file: Function;
+}
 
-  this.select_directory = (dir) => {
-    var next_path = path.join(main.current_directory, dir);
-    main.current_directory = next_path;
+export = class MainController {
+  constructor(private $scope: MainScope) {
+    $scope.select_directory = angular.bind(this, this.select_directory);
+    $scope.select_file = angular.bind(this, this.select_file);
+
+    this.$scope.current_directory = '/';
+    this.$scope.current_file = '';
+    this.$scope.current_note = {
+      title: 'Hello adversaria',
+      markdown: '# What is adversaria\nRefer [repository](https://github.com/ueokande/adversaria)>.',
+      path: ''
+    };
   }
 
-  this.select_file = (file) => {
-    main.current_note.title = file;
-    main.current_note.markdown = file + " is on previewing!!";
-    main.current_note.path = path.join(main.current_directory, file);
-  }
-
-  main.file_items = [
-    { name: 'install_adversaria.md', file: true },
-    { name: 'usage.md', file: true },
-    { name: 'Directory 1', directory: true },
-  ];
-});
-
-ngModule.directive('mdPreview', () => {
-  return ($scope, $elem, $attrs) => {
-    $scope.$watch($attrs.mdPreview, (source) => {
-      $elem.html(source);
+  select_directory(dir): void{
+    var next_path = path.join(this.$scope.current_directory, dir);
+    this.$scope.current_directory = next_path;
+    this.$scope.file_items = [];
+    fs.readdir(next_path, (err, file_list) => {
+      file_list = file_list.filter((name) => { return !/^\./.test(name) });
+      file_list.forEach((file) => {
+        var full_path = path.join(this.$scope.current_directory, file);
+        var stats = fs.statSync(full_path);
+        if (stats.isDirectory()) {
+          this.$scope.file_items.push({name: file, directory: true});
+        } else if (stats.isFile()) {
+          this.$scope.file_items.push({name: file, file: true});
+        }
+      });
+      this.$scope.$apply();
     });
-  };
-});
+  }
 
-window.onload = () => {
-  if (!settings.loadDocumentPath()) {
-    UserSettingsDialog.show();
+  select_file(file): void {
+    this.$scope.current_note.title = file;
+    this.$scope.current_note.markdown = file + " is on previewing!!";
+    this.$scope.current_note.path = path.join(this.$scope.current_directory, file);
   }
 }

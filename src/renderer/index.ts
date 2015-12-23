@@ -1,0 +1,29 @@
+///<reference path='user_settings_dialog.ts'/>
+
+var remote = require('remote');
+var fs = require('fs');
+var path = require('path');
+var settings = require('../browser/user_settings')
+var MainController = require('./main_controller');
+
+var ngModule = angular.module('adversaria', []);
+
+angular.module('adversaria').controller('MainController', ['$scope', MainController]);
+
+ngModule.directive('mdPreview', () => {
+  return ($scope, $elem, $attrs) => {
+    $scope.$watch($attrs.mdPreview, (source) => {
+      $elem.html(source);
+    });
+  };
+});
+
+window.onload = () => {
+  var document_path = settings.loadDocumentPath();
+  if (!document_path) {
+    UserSettingsDialog.show();
+  }
+  var scope: any = angular.element(document.body).scope();
+  scope.current_directory = document_path;
+  scope.select_directory('.');
+}
