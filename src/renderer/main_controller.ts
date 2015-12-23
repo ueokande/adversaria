@@ -1,5 +1,7 @@
+///<reference path='../browser/note.ts'/>
+
 var remote = require('remote')
-var mdUtils = remote.require('../browser/md_utils');
+var Note = remote.require('../browser/note');
 var path = require('path');
 
 interface MainScope extends ng.IScope {
@@ -22,8 +24,10 @@ export = class MainController {
   }
 
   select_file(file): void {
-    this.$scope.current_note.title = path.basename(file);
-    this.$scope.current_note.markdown = mdUtils.readAsHtml(file);
-    this.$scope.current_note.path = file
+    Note.load(file, (err, loaded) => {
+      this.$scope.current_note.title = loaded.title();
+      this.$scope.current_note.markdown = loaded.markdownAsHtml();
+      this.$scope.current_note.path = loaded.fileName();
+    });
   }
 }
