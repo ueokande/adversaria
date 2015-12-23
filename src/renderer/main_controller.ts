@@ -1,4 +1,5 @@
-var mdUtils = require('../browser/md_utils');
+var remote = require('remote')
+var mdUtils = remote.require('../browser/md_utils');
 var path = require('path');
 
 interface MainScope extends ng.IScope {
