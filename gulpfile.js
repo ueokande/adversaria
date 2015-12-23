@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+var addsrc = require('gulp-add-src');
 var taskListing = require('gulp-task-listing');
 var bower = require('gulp-bower');
 var tsd = require('gulp-tsd');
@@ -17,6 +18,7 @@ gulp.task('help', taskListing);
 
   gulp.task('build:' + dir, function(){
     gulp.src([typescript_glob])
+    .pipe(addsrc('./typings/tsd.d.ts'))
     .pipe(typescript({ target: 'es5',
                        module: 'commonjs',
                        sourceMap: true }))
@@ -44,6 +46,7 @@ gulp.task('build', ['build:browser', 'build:renderer']);
 
 gulp.task('build:test', ['build'], function() {
   gulp.src(['test/**/*.ts'])
+    .pipe(addsrc('./typings/tsd.d.ts'))
     .pipe(typescript({ target: 'es5',
                        module: 'commonjs',
                        sourceMap: true }))
