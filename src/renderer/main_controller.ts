@@ -1,5 +1,3 @@
-///<reference path='../../typings/tsd.d.ts'/>
-
 var remote = require('remote');
 var fs = require('fs');
 var path = require('path');

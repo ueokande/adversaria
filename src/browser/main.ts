@@ -1,5 +1,3 @@
-///<reference path='../../typings/tsd.d.ts'/>
-
 var app = require('app');
 var BrowserWindow = require('browser-window');
 var Menu = require('menu');
