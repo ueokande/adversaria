@@ -18,7 +18,7 @@
       </li>
       <li class='file_item file'
           ng-if='entry.file'
-          ng-click='select_file(entry.name)'
+          ng-click='select_file(fullPathOf(entry.name))'
           ng-repeat='entry in file_items'>
         {{entry.name}}
       </li>
