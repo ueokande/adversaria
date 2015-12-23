@@ -3,6 +3,7 @@ var addsrc = require('gulp-add-src');
 var filter = require('gulp-filter');
 var print = require('gulp-print');
 var taskListing = require('gulp-task-listing');
+var del = require('del');
 var bower = require('gulp-bower');
 var tsd = require('gulp-tsd');
 var typescript = require('gulp-typescript');
@@ -94,6 +95,11 @@ gulp.task('build', function(){
 gulp.task('watch', function(){
   gulp.watch('{test,src}/**/*', ['build']);
 });
+
+gulp.task('clean', function(cb) {
+  del(['build', 'test-build'], cb);
+});
+
 
 gulp.task('build:test', ['build'], function() {
   gulp.src(['test/**/*.ts'])
