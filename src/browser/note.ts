@@ -24,7 +24,9 @@ export = class Note {
   }
 
   title(): string {
-    return path.basename(this.file_name);
+    return path.basename(this.file_name)
+      .replace(/_/g, ' ')
+      .replace(/.md$/, '');
   }
 
   markdownAsHtml(): string {
