@@ -5,18 +5,29 @@
     <link href="style.css" rel="stylesheet" />
     <title>First Electron App</title>
   </head>
-  <body ng-controller="MainController as main">
-    <ul class='file_list'>
-      <li class='file_item' ng-repeat='entry in main.file_items'>
-        <a ng-if='entry.file' ng-click='main.select_file(entry.name)'>{{entry.name}}</a>
-        <a ng-if='entry.directory' ng-click='main.select_directory(entry.name)'>{{entry.name}}</a>
+  <body ng-controller="MainController">
+    <ul id='navigator' class='file_list' ng-controller="NavigatorController">
+      <li class='file_item parent'
+          ng-if='!isRootDirectory()'
+          ng-click='selectParentDirectory()'></li>
+      <li class='file_item directory'
+          ng-if='entry.directory'
+          ng-click='selectDirectory(entry.name)'
+          ng-repeat='entry in file_items'>
+        {{entry.name}}
+      </li>
+      <li class='file_item file'
+          ng-if='entry.file'
+          ng-click='select_file(entry.name)'
+          ng-repeat='entry in file_items'>
+        {{entry.name}}
       </li>
     </ul>
 
     <div class='md_preview'>
-      <p class='title'>{{main.current_note.title}}</p>
-      <div class='content' md-preview='main.current_note.markdown'></div>
-      <p class='path'>{{main.current_note.path}}</p>
+      <p class='title'>{{current_note.title}}</p>
+      <div class='content' md-preview='current_note.markdown'></div>
+      <p class='path'>{{current_note.path}}</p>
     </div>
 
     <dialog id='user_settings_dialog'>
@@ -32,7 +43,7 @@
 
     <script src="../../bower_components/angular/angular.js"></script>
     <script src="user_settings_dialog.js"></script>
-    <script src="main_controller.js"></script>
+    <script src="index.js"></script>
     <script>require('electron-connect').client.create()</script>
   </body>
 </html>

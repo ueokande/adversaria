@@ -1,51 +1,24 @@
-///<reference path='user_settings_dialog.ts'/>
+interface MainScope extends ng.IScope {
+  current_file: string;
+  current_note: any;
 
-var remote = require('remote');
-var fs = require('fs');
-var path = require('path');
-var ngModule = angular.module('adversaria', []);
-var settings = remote.require('../browser/user_settings');
-require('./user_settings_dialog');
+  select_file: Function;
+}
 
-ngModule.controller('MainController', function () {
-  var main = this;
+export = class MainController {
+  constructor(private $scope: MainScope) {
+    $scope.select_file = angular.bind(this, this.select_file);
 
-  main.current_directory = '/';
-  main.current_file = '';
-  main.current_note = {
-    title: 'Hello adversaria',
-    markdown: '# What is adversaria\nRefer [repository](https://github.com/ueokande/adversaria)>.',
-    path: ''
-  };
-
-  this.select_directory = (dir) => {
-    var next_path = path.join(main.current_directory, dir);
-    main.current_directory = next_path;
+    this.$scope.current_file = '';
+    this.$scope.current_note = {
+      title: 'Hello adversaria',
+      markdown: '# What is adversaria\nRefer [repository](https://github.com/ueokande/adversaria)>.',
+      path: ''
+    };
   }
 
-  this.select_file = (file) => {
-    main.current_note.title = file;
-    main.current_note.markdown = file + " is on previewing!!";
-    main.current_note.path = path.join(main.current_directory, file);
-  }
-
-  main.file_items = [
-    { name: 'install_adversaria.md', file: true },
-    { name: 'usage.md', file: true },
-    { name: 'Directory 1', directory: true },
-  ];
-});
-
-ngModule.directive('mdPreview', () => {
-  return ($scope, $elem, $attrs) => {
-    $scope.$watch($attrs.mdPreview, (source) => {
-      $elem.html(source);
-    });
-  };
-});
-
-window.onload = () => {
-  if (!settings.loadDocumentPath()) {
-    UserSettingsDialog.show();
+  select_file(file): void {
+    this.$scope.current_note.title = file;
+    this.$scope.current_note.markdown = file + " is on previewing!!";
   }
 }
