@@ -74,49 +74,14 @@ body {
     padding: 12px;
   }
 
-  .content {
+  .markdown-body {
     flex-grow: 1;
     background-color: #fefeff;
     color: #272f32;
     padding : 16px;
-
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 15px;
-      margin-bottom: 15px;
-      line-height: 1.1;
-    }
-    h1 {
-      padding-bottom: 0.3em;
-      font-size: 2.25em;
-      line-height: 1.2;
-      border-bottom: 1px solid #eee;
-    }
-    h2 {
-      padding-bottom: 0.3em;
-      font-size: 1.75em;
-      line-height: 1.225;
-      border-bottom: 1px solid #eee;
-    }
-    h3 {
-      font-size: 1.5em;
-      line-height: 1.43;
-    }
-    h4 {
-      font-size: 1.25rem;
-    }
-    h5 {
-      font-size: 1rem;
-    }
-    h6 {
-      font-size: 1rem;
-    }
-    a:link, a:visited {
-      color: #FF3D2E;
-      text-decoration: none;
-    }
-    a:hover, a:active {
-      color: #FF3D2E;
-      text-decoration: underline;
+    overflow-y: scroll;
+    .emoji {
+      height: 1.2em;
     }
   }
 

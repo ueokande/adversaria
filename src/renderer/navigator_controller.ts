@@ -9,6 +9,7 @@ interface MainScope extends ng.IScope {
   selectParentDirectory: Function;
   setRootDirectory: Function;
   isRootDirectory: Function;
+  fullPathOf: Function;
 }
 
 export = class MainController {
@@ -19,6 +20,7 @@ export = class MainController {
     $scope.selectParentDirectory = angular.bind(this, this.selectParentDirectory);
     $scope.setRootDirectory = angular.bind(this, this.setRootDirectory);
     $scope.isRootDirectory = angular.bind(this, this.isRootDirectory);
+    $scope.fullPathOf = angular.bind(this, this.fullPathOf);
     $scope.current_directory = null;
   }
 
@@ -53,5 +55,9 @@ export = class MainController {
 
   isRootDirectory(): boolean {
     return this.rootDirectory && (this.rootDirectory == this.$scope.current_directory)
+  }
+
+  fullPathOf(file: string): string {
+    return path.join(this.$scope.current_directory, file);
   }
 }

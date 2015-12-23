@@ -1,3 +1,6 @@
+var mdUtils = require('../browser/md_utils');
+var path = require('path');
+
 interface MainScope extends ng.IScope {
   current_file: string;
   current_note: any;
@@ -18,7 +21,8 @@ export = class MainController {
   }
 
   select_file(file): void {
-    this.$scope.current_note.title = file;
-    this.$scope.current_note.markdown = file + " is on previewing!!";
+    this.$scope.current_note.title = path.basename(file);
+    this.$scope.current_note.markdown = mdUtils.readAsHtml(file);
+    this.$scope.current_note.path = file
   }
 }
