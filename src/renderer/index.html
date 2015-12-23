@@ -6,7 +6,7 @@
     <title>First Electron App</title>
   </head>
   <body ng-controller="MainController">
-    <ul class='file_list'>
+    <ul id='navigator' class='file_list' ng-controller="NavigatorController">
       <li class='file_item directory'
           ng-if='entry.directory'
           ng-click='select_directory(entry.name)'

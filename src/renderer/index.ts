@@ -5,10 +5,12 @@ var fs = require('fs');
 var path = require('path');
 var settings = require('../browser/user_settings')
 var MainController = require('./main_controller');
+var NavigatorController = require('./navigator_controller');
 
 var ngModule = angular.module('adversaria', []);
 
-angular.module('adversaria').controller('MainController', ['$scope', MainController]);
+ngModule.controller('MainController', ['$scope', MainController]);
+ngModule.controller('NavigatorController', ['$scope', NavigatorController]);
 
 ngModule.directive('mdPreview', () => {
   return ($scope, $elem, $attrs) => {
@@ -23,7 +25,7 @@ window.onload = () => {
   if (!document_path) {
     UserSettingsDialog.show();
   }
-  var scope: any = angular.element(document.body).scope();
+  var scope: any = angular.element(document.getElementById('navigator')).scope();
   scope.current_directory = document_path;
   scope.select_directory('.');
 }
