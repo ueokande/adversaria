@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <link href="style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../bower_components/github-markdown-css/github-markdown.css">
     <title>First Electron App</title>
   </head>
   <body ng-controller="MainController">
@@ -26,7 +27,7 @@
 
     <div class='md_preview'>
       <p class='title'>{{current_note.title}}</p>
-      <div class='content' md-preview='current_note.markdown'></div>
+      <div class='markdown-body' md-preview='current_note.markdown'></div>
       <p class='path'>{{current_note.path}}</p>
     </div>
 
