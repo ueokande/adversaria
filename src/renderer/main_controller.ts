@@ -3,6 +3,7 @@
 var remote = require('remote')
 var Note = remote.require('../browser/note');
 var path = require('path');
+import chokidar = require('chokidar');
 
 interface MainScope extends ng.IScope {
   current_file: string;
@@ -12,9 +13,10 @@ interface MainScope extends ng.IScope {
 }
 
 export = class MainController {
-  constructor(private $scope: MainScope) {
-    $scope.select_file = angular.bind(this, this.select_file);
+  private current_watcher: any;
 
+  constructor(private $scope: MainScope) {
+    this.$scope.select_file = angular.bind(this, this.select_file);
     this.$scope.current_file = '';
     this.$scope.current_note = {
       title: 'Hello adversaria',
@@ -24,10 +26,20 @@ export = class MainController {
   }
 
   select_file(file): void {
+    if (this.current_watcher) {
+      this.current_watcher.close();
+    }
+    this.current_watcher = chokidar.watch(file, { persistent: true });
+    this.current_watcher.on('change', this.reload_file);
+    this.reload_file(file);
+  }
+
+  reload_file = (file: string) => {
     Note.load(file, (err, loaded) => {
       this.$scope.current_note.title = loaded.title();
       this.$scope.current_note.markdown = loaded.markdownAsHtml();
       this.$scope.current_note.path = loaded.fileName();
+      this.$scope.$apply();
     });
   }
 }
