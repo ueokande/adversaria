@@ -16,5 +16,6 @@ install:
 before_script:
 - git config --global user.name "Lorem Ipsum"
 - git config --global user.email lorem-ipsum@example.com
+- npm run build
 script:
 - npm test

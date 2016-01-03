@@ -65,11 +65,7 @@ gulp.task('help', taskListing);
 gulp.task('build', ['build:src', 'build:test']);
 
 gulp.task('build:src', function(){
-  var typescript_glob = 'src/**/*.ts';
-  var stylesheet_glob = 'src/**/*.{sass,scss}';
-  var static_glob = 'src/**/*.{html,css,js}';
-
-  gulp.src([typescript_glob])
+  gulp.src('src/**/*.ts')
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('tsc')))
   .pipe(addsrc('./typings/tsd.d.ts'))
@@ -79,16 +75,13 @@ gulp.task('build:src', function(){
   .js
   .pipe(gulp.dest('build'));
 
-  gulp.src(stylesheet_glob)
+  gulp.src('src/**/*.{sass,scss}')
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('sass')))
   .pipe(sass().on('error', sass.logError))
   .pipe(gulp.dest('build'));
 
-  gulp.src(
-    [static_glob],
-    { base: 'src' }
-  )
+  gulp.src('src/**/*.{html,css,js}', { base: 'src' })
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('clone')))
   .pipe(gulp.dest('build'));
@@ -104,7 +97,7 @@ gulp.task('clean', function(cb) {
 
 
 gulp.task('build:test', function() {
-  gulp.src(['test/**/*.ts'])
+  gulp.src('test/**/*.ts')
     .pipe(filter(needToCompile))
     .pipe(print(showBuild('tsc')))
     .pipe(addsrc('./typings/tsd.d.ts'))
@@ -114,17 +107,14 @@ gulp.task('build:test', function() {
     .js
     .pipe(gulp.dest('test-build'));
 
-  gulp.src(
-    ['test/**/*.js', 'test/testdata/*'],
-    { base: 'test' }
-  )
+  gulp.src(['test/**/*.js', 'test/testdata/**/*'], { base: 'test' })
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('clone')))
   .pipe(gulp.dest('test-build'));
 });
 
-gulp.task('test', ['build:test'], function() {
-  return gulp.src(['test-build/**/*_test.js'], { read: false })
+gulp.task('test', function() {
+  return gulp.src(['test-build/**/*_test.js'])
     .pipe(mocha({ reporter: 'dot'}));
 });
 
@@ -132,10 +122,10 @@ gulp.task('serve', ['watch'], function () {
   electron.start();
 
   // Restart electron when resources loaded from BrowserProcess updates
-  gulp.watch(['build/browser/**/*.js'], electron.restart);
+  gulp.watch('build/browser/**/*.js', electron.restart);
 
   // Reload a page when resources loaded from RendererProcess updates
-  gulp.watch(['build/renderer/**/*.{html,js,css}'], electron.reload);
+  gulp.watch('build/renderer/**/*.{html,js,css}', electron.reload);
 });
 
 gulp.task('install', ['install:bower', 'install:tsd']);
