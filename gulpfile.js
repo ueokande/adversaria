@@ -62,7 +62,9 @@ function showBuild(compile) {
 
 gulp.task('help', taskListing);
 
-gulp.task('build', function(){
+gulp.task('build', ['build:src', 'build:test']);
+
+gulp.task('build:src', function(){
   var typescript_glob = 'src/**/*.ts';
   var stylesheet_glob = 'src/**/*.{sass,scss}';
   var static_glob = 'src/**/*.{html,css,js}';
@@ -101,7 +103,7 @@ gulp.task('clean', function(cb) {
 });
 
 
-gulp.task('build:test', ['build'], function() {
+gulp.task('build:test', function() {
   gulp.src(['test/**/*.ts'])
     .pipe(filter(needToCompile))
     .pipe(print(showBuild('tsc')))
