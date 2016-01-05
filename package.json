@@ -9,7 +9,6 @@
     "watch": "gulp watch",
     "serve": "gulp serve",
     "start": "electron .",
-    "pretest": "gulp build:test",
     "test": "gulp test",
     "clean": "gulp clean"
   },
