@@ -33,7 +33,6 @@ window.onkeypress = (e) => {
   if (e.keyCode == 101) { // e
     var scope = <any>angular.element(document.body).scope();
     var path = scope.current_note.path;
-    console.debug(scope.current_note);
     if (scope.current_note.path.length == 0) {
       return true;
     }
