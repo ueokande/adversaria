@@ -1,5 +1,5 @@
 ///<reference path='../browser/note.ts'/>
-///<reference path='components/path-view.ts'/>
+///<reference path='components/path-view/path-view.ts'/>
 
 var remote = require('remote')
 var Note = remote.require('../browser/note');
@@ -22,6 +22,7 @@ export = class MainController {
     this.$scope.current_note = {
       title: 'Hello adversaria',
       markdown: '# What is adversaria\nRefer [repository](https://github.com/ueokande/adversaria)>.',
+      path: ''
     };
   }
 
@@ -38,6 +39,7 @@ export = class MainController {
     Note.load(file, (err, loaded) => {
       this.$scope.current_note.title = loaded.title();
       this.$scope.current_note.markdown = loaded.markdownAsHtml();
+      this.$scope.current_note.path = loaded.fileName();
       var pathView = <PathViewElement> document.getElementById("path_view");
       pathView.path = loaded.fileName();
       this.$scope.$apply();

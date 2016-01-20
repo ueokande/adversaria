@@ -16,52 +16,6 @@ body {
   align-items: stretch;
 }
 
-.file_list {
-  width: 240px;
-  color: #fefeff;
-  background-color: #272f32;
-  .file_item {
-    padding : 8px 8px;
-    cursor: pointer;
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-  }
-
-  .directory {
-    &:before {
-      content: '';
-      width: 0;
-      height: 0;
-      display: inline-block;
-      left: 8px;
-      top: 50%;
-      margin-top: -6px;
-      border-style: solid;
-      border-width: 6px 0 6px 6px;
-      border-color: transparent transparent transparent #fff;
-    }
-  }
-  .parent {
-    text-align: center;
-    padding-top: 0;
-    padding-bottom: 0;
-    &:before {
-      content: '';
-      width: 0;
-      height: 0;
-      display: inline-block;
-      left: 50%;
-      top: 50%;
-      margin-top: -6px;
-      margin-left: -6px;
-      border-style: solid;
-      border-width: 0 6px 6px 6px;
-      border-color: transparent transparent #fff transparent;
-    }
-  }
-}
-
 .md_preview {
   width: 100%;
   display: flex;

@@ -1,4 +1,5 @@
 ///<reference path='user_settings_dialog.ts'/>
+///<reference path='components/navigator/navigator.ts'/>
 
 var remote = require('remote');
 var fs = require('fs');
@@ -10,7 +11,6 @@ var NavigatorController = require('./navigator_controller');
 var ngModule = angular.module('adversaria', []);
 
 ngModule.controller('MainController', ['$scope', MainController]);
-ngModule.controller('NavigatorController', ['$scope', NavigatorController]);
 
 ngModule.directive('mdPreview', () => {
   return ($scope, $elem, $attrs) => {
@@ -21,12 +21,18 @@ ngModule.directive('mdPreview', () => {
 });
 
 window.onload = () => {
+  var fileNavigator = <NavigatorElement>document.getElementById('navigator');
+  var navigatorController = new NavigatorController(fileNavigator);
+
   var document_path = settings.loadDocumentPath();
   if (!document_path) {
     UserSettingsDialog.show();
   }
-  var scope: any = angular.element(document.getElementById('navigator')).scope();
-  scope.setRootDirectory(document_path);
+  navigatorController.setRootDirectory(document_path);
+  navigatorController.onFileSelect(function(filename) {
+    var scope = <any>angular.element(document.body).scope();
+    scope.select_file(navigatorController.fullPathOf(filename));
+  });
 }
 
 window.onkeypress = (e) => {
