@@ -9,8 +9,9 @@ export = class NavigatorController {
   private fileSelectCallback: Function;
   private controller: NavigatorController;
 
-  constructor(private element: NavigatorElement) {
+  constructor() {
     this.controller = this;
+    var element = <NavigatorElement>document.getElementById('navigator');
     element.onFileClick((filename) => {
       if (this.fileSelectCallback) { this.fileSelectCallback(filename) }
     });

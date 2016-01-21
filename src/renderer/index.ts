@@ -21,8 +21,7 @@ ngModule.directive('mdPreview', () => {
 });
 
 window.onload = () => {
-  var fileNavigator = <NavigatorElement>document.getElementById('navigator');
-  var navigatorController = new NavigatorController(fileNavigator);
+  var navigatorController = new NavigatorController;
 
   var document_path = settings.loadDocumentPath();
   if (!document_path) {
