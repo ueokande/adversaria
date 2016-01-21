@@ -1,5 +1,6 @@
 ///<reference path='../browser/note.ts'/>
 ///<reference path='components/path-view/path-view.ts'/>
+///<reference path='components/note-view/note-view.ts'/>
 
 var remote = require('remote')
 var Note = remote.require('../browser/note');
@@ -18,12 +19,10 @@ export = class MainController {
 
   constructor(private $scope: MainScope) {
     this.$scope.select_file = angular.bind(this, this.select_file);
-    this.$scope.current_file = '';
-    this.$scope.current_note = {
-      title: 'Hello adversaria',
-      markdown: '# What is adversaria\nRefer [repository](https://github.com/ueokande/adversaria)>.',
-      path: ''
-    };
+    var noteView = <NoteViewElement>document.getElementById('note-view')
+    noteView.title = 'Hello adversaria';
+    noteView.body = '# What is adversaria\nRefer [repository](https://github.com/ueokande/adversaria)>.';
+    noteView.path = '';
   }
 
   select_file(file): void {
@@ -37,12 +36,10 @@ export = class MainController {
 
   reload_file = (file: string) => {
     Note.load(file, (err, loaded) => {
-      this.$scope.current_note.title = loaded.title();
-      this.$scope.current_note.markdown = loaded.markdownAsHtml();
-      this.$scope.current_note.path = loaded.fileName();
-      var pathView = <PathViewElement> document.getElementById("path_view");
-      pathView.path = loaded.fileName();
-      this.$scope.$apply();
+      var noteView = <NoteViewElement>document.getElementById('note-view')
+      noteView.title = loaded.title();
+      noteView.body = loaded.markdownAsHtml();
+      noteView.path = loaded.fileName();
     });
   }
 }

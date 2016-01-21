@@ -16,31 +16,6 @@ body {
   align-items: stretch;
 }
 
-.md_preview {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  .title {
-    color: #ffffff;
-    background-color : #8a48db;
-    font-size : 2rem;
-    padding: 12px;
-    text-transform: capitalize;
-  }
-
-  .markdown-body {
-    flex-grow: 1;
-    background-color: #fefeff;
-    color: #272f32;
-    padding : 16px;
-    overflow-y: scroll;
-    .emoji {
-      height: 1.2em;
-    }
-  }
-}
-
 #user_settings_dialog {
   position: absolute;
   left: 0;

@@ -6,16 +6,13 @@
     <link rel="stylesheet" href="../../bower_components/github-markdown-css/github-markdown.css">
     <link rel="import" href="components/path-view/path-view.html">
     <link rel="import" href="components/navigator/navigator.html">
+    <link rel="import" href="components/note-view/note-view.html">
     <title>First Electron App</title>
   </head>
   <body ng-controller="MainController">
     <ul is='adv-navigator' id='navigator'></ul>
 
-    <div class='md_preview'>
-      <p class='title'>{{current_note.title}}</p>
-      <div class='markdown-body' md-preview='current_note.markdown'></div>
-      <adv-path-view id='path_view'></adv-path-view>
-    </div>
+    <adv-note-view id='note-view'></adv-note-view>
 
     <dialog id='user_settings_dialog'>
       <header>
