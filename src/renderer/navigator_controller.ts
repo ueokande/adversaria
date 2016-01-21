@@ -1,64 +1,49 @@
 ///<reference path='components/navigator/navigator.ts'/>
+///<reference path='document_tree.ts'/>
 
-var fs = require('fs');
 var path = require('path');
+var DocumentTree = require('./document_tree').DocumentTree;
+DocumentTree.FileType = require('./document_tree').FileType;
 
 export = class NavigatorController {
-  private rootDirectory: string;
-  private currentDirectory: string;
+  private element: NavigatorElement;
   private fileSelectCallback: Function;
   private controller: NavigatorController;
+  private documentTree: any;
 
   constructor() {
     this.controller = this;
-    var element = <NavigatorElement>document.getElementById('navigator');
-    element.onFileClick((filename) => {
-      if (this.fileSelectCallback) { this.fileSelectCallback(filename) }
+    this.element = <NavigatorElement>document.getElementById('navigator');
+    this.element.onFileClick((filename) => {
+      if (!this.documentTree || !this.fileSelectCallback) { return }
+      var fullpath = this.documentTree.fullPathOf(filename);
+      this.fileSelectCallback(filename, fullpath);
     });
-    element.onDirectoryClick((dirname) => {
+    this.element.onDirectoryClick((dirname) => {
       this.selectDirectory(dirname);
     });
   }
 
-  setRootDirectory(dir: string) {
-    this.rootDirectory = dir;
-    this.currentDirectory = dir;
+  setDocumentPath(doc_path: string): void {
+    this.documentTree = new DocumentTree(doc_path);
     this.selectDirectory('.');
   }
 
-  onFileSelect(callback: Function) {
+  onFileSelect(callback: Function): void {
     this.fileSelectCallback = callback;
   }
 
   selectDirectory(dir): void {
-    var navigator = <NavigatorElement>document.getElementById('navigator');
-    var next_path = path.join(this.currentDirectory, dir);
-    this.currentDirectory = next_path;
-    navigator.clearItems();
-    navigator.setParentButton(!this.isRootDirectory());
-    fs.readdir(next_path, (err, file_list) => {
-      file_list = file_list.filter((name) => { return !/^\./.test(name) });
-      file_list.forEach((file) => {
-        var full_path = path.join(this.currentDirectory, file);
-        var stats = fs.statSync(full_path);
-        if (stats.isDirectory()) {
-          navigator.addItem(file, FileType.Directory);
-        } else if (stats.isFile() && /\.md$/.test(full_path)) {
-          navigator.addItem(file, FileType.File);
-        }
-      });
+    this.documentTree.enter(dir);
+    this.element.clearItems();
+    this.element.setParentButton(!this.documentTree.isRootDirectory());
+    this.documentTree.list((fullpath, filetype) => {
+      var basename = path.basename(fullpath);
+      if (filetype == DocumentTree.FileType.Directory) {
+        this.element.addItem(basename, FileType.Directory);
+      } if (filetype == DocumentTree.FileType.Note) {
+        this.element.addItem(basename, FileType.File);
+      }
     });
-  }
-
-  selectParentDirectory(): void {
-    this.selectDirectory('..');
-  }
-
-  isRootDirectory(): boolean {
-    return this.rootDirectory && (this.rootDirectory == this.currentDirectory)
-  }
-
-  fullPathOf(file: string): string {
-    return path.join(this.currentDirectory, file);
   }
 }

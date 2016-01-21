@@ -20,9 +20,9 @@ window.onload = () => {
   noteController = new NoteController;
 
   var navigatorController = new NavigatorController;
-  navigatorController.setRootDirectory(document_path);
-  navigatorController.onFileSelect(function(filename) {
-    noteController.open(navigatorController.fullPathOf(filename));
+  navigatorController.setDocumentPath(document_path);
+  navigatorController.onFileSelect(function(filename, fullpath) {
+    noteController.open(fullpath);
   });
 }
 
