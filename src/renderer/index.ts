@@ -8,7 +8,6 @@ var settings = require('../browser/user_settings')
 var externalEditor = require('./../browser/external_editor');
 var NoteController = require('./note_controller');
 var NavigatorController = require('./navigator_controller');
-var ngModule = angular.module('adversaria', []);
 
 var noteController;
 
@@ -29,7 +28,6 @@ window.onload = () => {
 
 window.onkeypress = (e) => {
   if (e.keyCode == 101) { // e
-    var scope = <any>angular.element(document.body).scope();
     var path = noteController.currentFile();
     if (path && path.length == 0) {
       return true;
