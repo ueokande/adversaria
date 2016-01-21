@@ -4,32 +4,14 @@
     <meta charset="UTF-8">
     <link href="style.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../bower_components/github-markdown-css/github-markdown.css">
+    <link rel="import" href="components/navigator/navigator.html">
+    <link rel="import" href="components/note-view/note-view.html">
     <title>First Electron App</title>
   </head>
-  <body ng-controller="MainController">
-    <ul id='navigator' class='file_list' ng-controller="NavigatorController">
-      <li class='file_item parent'
-          ng-if='!isRootDirectory()'
-          ng-click='selectParentDirectory()'></li>
-      <li class='file_item directory'
-          ng-if='entry.directory'
-          ng-click='selectDirectory(entry.name)'
-          ng-repeat='entry in file_items'>
-        {{entry.name}}
-      </li>
-      <li class='file_item file'
-          ng-if='entry.file'
-          ng-click='select_file(fullPathOf(entry.name))'
-          ng-repeat='entry in file_items'>
-        {{entry.name}}
-      </li>
-    </ul>
+  <body>
+    <ul is='adv-navigator' id='navigator'></ul>
 
-    <div class='md_preview'>
-      <p class='title'>{{current_note.title}}</p>
-      <div class='markdown-body' md-preview='current_note.markdown'></div>
-      <p class='path'>{{current_note.path}}</p>
-    </div>
+    <adv-note-view id='note-view'></adv-note-view>
 
     <dialog id='user_settings_dialog'>
       <header>
@@ -42,7 +24,6 @@
       </label>
     </dialog>
 
-    <script src="../../bower_components/angular/angular.js"></script>
     <script src="user_settings_dialog.js"></script>
     <script src="index.js"></script>
     <script>require('electron-connect').client.create()</script>

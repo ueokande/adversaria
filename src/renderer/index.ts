@@ -1,40 +1,35 @@
 ///<reference path='user_settings_dialog.ts'/>
+///<reference path='components/navigator/navigator.ts'/>
 
 var remote = require('remote');
 var fs = require('fs');
 var path = require('path');
 var settings = require('../browser/user_settings')
 var externalEditor = require('./../browser/external_editor');
-var MainController = require('./main_controller');
+var NoteController = require('./note_controller');
 var NavigatorController = require('./navigator_controller');
-var ngModule = angular.module('adversaria', []);
 
-ngModule.controller('MainController', ['$scope', MainController]);
-ngModule.controller('NavigatorController', ['$scope', NavigatorController]);
-
-ngModule.directive('mdPreview', () => {
-  return ($scope, $elem, $attrs) => {
-    $scope.$watch($attrs.mdPreview, (source) => {
-      $elem.html(source);
-    });
-  };
-});
+var noteController;
 
 window.onload = () => {
   var document_path = settings.loadDocumentPath();
   if (!document_path) {
     UserSettingsDialog.show();
   }
-  var scope: any = angular.element(document.getElementById('navigator')).scope();
-  scope.setRootDirectory(document_path);
+
+  noteController = new NoteController;
+
+  var navigatorController = new NavigatorController;
+  navigatorController.setRootDirectory(document_path);
+  navigatorController.onFileSelect(function(filename) {
+    noteController.open(navigatorController.fullPathOf(filename));
+  });
 }
 
 window.onkeypress = (e) => {
   if (e.keyCode == 101) { // e
-    var scope = <any>angular.element(document.body).scope();
-    var path = scope.current_note.path;
-    console.debug(scope.current_note);
-    if (scope.current_note.path.length == 0) {
+    var path = noteController.currentFile();
+    if (path && path.length == 0) {
       return true;
     }
     externalEditor.open(path)
