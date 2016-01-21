@@ -1,5 +1,4 @@
 ///<reference path='../browser/note.ts'/>
-///<reference path='components/path-view/path-view.ts'/>
 ///<reference path='components/note-view/note-view.ts'/>
 
 var remote = require('remote')
