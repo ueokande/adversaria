@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var addsrc = require('gulp-add-src');
 var filter = require('gulp-filter');
 var print = require('gulp-print');
-var taskListing = require('gulp-task-listing');
 var del = require('del');
 var bower = require('gulp-bower');
 var tsd = require('gulp-tsd');
@@ -60,12 +59,8 @@ function showBuild(compile) {
   }
 }
 
-gulp.task('help', taskListing);
-
-gulp.task('build', ['build:src', 'build:test']);
-
-gulp.task('build:src', function(){
-  gulp.src('src/**/*.ts')
+gulp.task('build:src', gulp.parallel(function() {
+  return gulp.src('src/**/*.ts')
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('tsc')))
   .pipe(addsrc('./typings/tsd.d.ts'))
@@ -74,30 +69,21 @@ gulp.task('build:src', function(){
                      sourceMap: true }))
   .js
   .pipe(gulp.dest('build'));
-
-  gulp.src('src/**/*.{sass,scss}')
+}, function() {
+  return gulp.src('src/**/*.{sass,scss}')
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('sass')))
   .pipe(sass().on('error', sass.logError))
   .pipe(gulp.dest('build'));
-
-  gulp.src('src/**/*.{html,css,js}', { base: 'src' })
+}, function() {
+  return gulp.src('src/**/*.{html,css,js}', { base: 'src' })
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('clone')))
   .pipe(gulp.dest('build'));
-});
+}));
 
-gulp.task('watch', function(){
-  gulp.watch('{test,src}/**/*', ['build']);
-});
-
-gulp.task('clean', function(cb) {
-  del(['build', 'test-build'], cb);
-});
-
-
-gulp.task('build:test', function() {
-  gulp.src('test/**/*.ts')
+gulp.task('build:test', gulp.parallel(function() {
+  return gulp.src('test/**/*.ts')
     .pipe(filter(needToCompile))
     .pipe(print(showBuild('tsc')))
     .pipe(addsrc('./typings/tsd.d.ts'))
@@ -106,11 +92,21 @@ gulp.task('build:test', function() {
                        sourceMap: true }))
     .js
     .pipe(gulp.dest('test-build'));
-
-  gulp.src(['test/**/*.js', 'test/testdata/**/*'], { base: 'test' })
+}, function() {
+  return gulp.src(['test/**/*.js', 'test/testdata/**/*'], { base: 'test' })
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('clone')))
   .pipe(gulp.dest('test-build'));
+}));
+
+gulp.task('build', gulp.parallel('build:src', 'build:test'));
+
+gulp.task('watch', function() {
+  gulp.watch('{test,src}/**/*', gulp.series('build'));
+});
+
+gulp.task('clean', function() {
+  return del(['build', 'test-build']);
 });
 
 gulp.task('test', function() {
@@ -118,7 +114,7 @@ gulp.task('test', function() {
     .pipe(mocha({ reporter: 'dot'}));
 });
 
-gulp.task('serve', ['watch'], function () {
+gulp.task('serve', function () {
   electron.start();
 
   // Restart electron when resources loaded from BrowserProcess updates
@@ -127,8 +123,6 @@ gulp.task('serve', ['watch'], function () {
   // Reload a page when resources loaded from RendererProcess updates
   gulp.watch('build/renderer/**/*.{html,js,css}', electron.reload);
 });
-
-gulp.task('install', ['install:bower', 'install:tsd']);
 
 gulp.task('install:bower', function() {
   return bower();
@@ -139,3 +133,5 @@ gulp.task('install:tsd', function(callback) {
         config: 'tsd.json'
       }, callback);
 });
+
+gulp.task('install', gulp.series('install:bower', 'install:tsd'));
