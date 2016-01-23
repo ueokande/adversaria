@@ -7,13 +7,26 @@ html {
   width: 100%;
   height: 100%;
   font-family: sans;
+  overflow: hidden;
 }
 
 body {
   display: flex;
   width: 100%;
   height: 100%;
+  overflow: hidden;
   align-items: stretch;
+  .side-panel {
+    display: flex;
+    flex-direction: column;
+    .navigator {
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+  }
+  adv-note-view {
+    overflow-y: auto;
+  }
 }
 
 #user_settings_dialog {
