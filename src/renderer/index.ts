@@ -4,12 +4,14 @@
 var remote = require('remote');
 var fs = require('fs');
 var path = require('path');
+var chokidar = require('chokidar');
 var settings = require('../browser/user_settings')
 var externalEditor = require('./../browser/external_editor');
 var NoteController = require('./note_controller');
 var NavigatorController = require('./navigator_controller');
 
 var noteController;
+var watcher;
 
 window.onload = () => {
   var document_path = settings.loadDocumentPath();
@@ -22,6 +24,9 @@ window.onload = () => {
   var navigatorController = new NavigatorController;
   navigatorController.setDocumentPath(document_path);
   navigatorController.onFileSelect(function(filename, fullpath) {
+    if (watcher) { this.watcher.close(); }
+    watcher = chokidar.watch(fullpath, { persistent: true });
+    watcher.on('change', () => { noteController.open(fullpath) });
     noteController.open(fullpath);
   });
 }
