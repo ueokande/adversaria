@@ -3,8 +3,6 @@ var addsrc = require('gulp-add-src');
 var filter = require('gulp-filter');
 var print = require('gulp-print');
 var del = require('del');
-var bower = require('gulp-bower');
-var tsd = require('gulp-tsd');
 var typescript = require('gulp-typescript');
 var sass = require('gulp-sass');
 var electron = require('electron-connect').server.create();
@@ -123,15 +121,3 @@ gulp.task('serve', function () {
   // Reload a page when resources loaded from RendererProcess updates
   gulp.watch('build/renderer/**/*.{html,js,css}', electron.reload);
 });
-
-gulp.task('install:bower', function() {
-  return bower();
-});
-
-gulp.task('install:tsd', function(callback) {
-  tsd({ command: 'reinstall',
-        config: 'tsd.json'
-      }, callback);
-});
-
-gulp.task('install', gulp.series('install:bower', 'install:tsd'));
