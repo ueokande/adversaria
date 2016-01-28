@@ -4,7 +4,6 @@
   "description": "Git-based note app",
   "main": "build/browser/main.js",
   "scripts": {
-    "postinstall": "gulp install",
     "build": "gulp build",
     "watch": "gulp watch",
     "serve": "gulp serve",
@@ -32,20 +31,18 @@
     "fs-extra": "^0.26.3",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-add-src": "^0.2.0",
-    "gulp-bower": "0.0.11",
     "gulp-filter": "^3.0.1",
     "gulp-mocha": "^2.2.0",
     "gulp-print": "^2.0.1",
     "gulp-sass": "^2.1.1",
     "gulp-task-listing": "^1.0.1",
-    "gulp-tsd": "0.0.4",
     "gulp-typescript": "^2.10.0",
     "markdown-it": "^5.0.2",
     "markdown-it-emoji": "^1.1.0",
     "mocha": "^2.3.4",
     "nodegit": "^0.6.3",
     "sass": "^0.5.0",
-    "tsd": "^0.6.5",
-    "typescript": "^1.7.5"
+    "typescript": "^1.7.5",
+    "typings": "^0.6.3"
   }
 }
