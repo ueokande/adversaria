@@ -8,6 +8,10 @@ addons:
     packages:
     - gcc-4.9
     - g++-4.9
+cache:
+  directories:
+  - node_modules
+  - bower_modules
 before_install:
 - export CC=/usr/bin/gcc-4.9
 - export CXX=/usr/bin/g++-4.9
