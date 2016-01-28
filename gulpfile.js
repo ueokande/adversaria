@@ -61,7 +61,7 @@ gulp.task('build:src', gulp.parallel(function() {
   return gulp.src('src/**/*.ts')
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('tsc')))
-  .pipe(addsrc('./typings/tsd.d.ts'))
+  .pipe(addsrc('./typings/main.d.ts'))
   .pipe(typescript({ target: 'es5',
                      module: 'commonjs',
                      sourceMap: true }))
@@ -84,7 +84,7 @@ gulp.task('build:test', gulp.parallel(function() {
   return gulp.src('test/**/*.ts')
     .pipe(filter(needToCompile))
     .pipe(print(showBuild('tsc')))
-    .pipe(addsrc('./typings/tsd.d.ts'))
+    .pipe(addsrc('./typings/main.d.ts'))
     .pipe(typescript({ target: 'es5',
                        module: 'commonjs',
                        sourceMap: true }))
