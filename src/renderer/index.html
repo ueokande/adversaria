@@ -6,10 +6,15 @@
     <link rel="stylesheet" href="../../bower_components/github-markdown-css/github-markdown.css">
     <link rel="import" href="components/navigator/navigator.html">
     <link rel="import" href="components/note-view/note-view.html">
+    <link rel="import" href="components/status-bar/status-bar.html">
     <title>First Electron App</title>
   </head>
   <body>
-    <ul is='adv-navigator' id='navigator'></ul>
+
+    <div class='side-panel'>
+      <ul is='adv-navigator' class='navigator' id='navigator'></ul>
+      <p is='adv-status-bar' id='status-bar'>&nbsp;</p>
+    </div>
 
     <adv-note-view id='note-view'></adv-note-view>
 
