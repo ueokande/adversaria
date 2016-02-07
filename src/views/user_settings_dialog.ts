@@ -1,8 +1,8 @@
 ///<reference path='../../typings/user_defined/html_dialog_element.d.ts'/>
 
-var remote = require('remote')
-var dialog = remote.require('dialog');
-var settings = remote.require('../browser/user_settings');
+const remote = require('remote')
+const dialog = remote.require('dialog');
+const settings = require('../user_settings');
 
 namespace UserSettingsDialog {
 

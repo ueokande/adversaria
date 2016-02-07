@@ -1,6 +1,6 @@
-var assert = require('chai').assert;
-var fs = require('fs');
-var settings = require('../../build/browser/user_settings');
+const assert = require('chai').assert;
+import * as fs from 'fs';
+import * as settings from '../build/user_settings';
 
 describe('UserSettings class', () => {
   var stub = null;

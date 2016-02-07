@@ -1,11 +1,11 @@
-var md = require('markdown-it')();
-var emoji = require('markdown-it-emoji');
-var fs = require('fs');
-var path = require('path');
+import * as fs from 'fs';
+import * as path from 'path';
+const md = require('markdown-it')();
+const emoji = require('markdown-it-emoji');
 
 md.use(emoji);
 
-export = class Note {
+export default class Note {
   private markdown_as_html: string;
 
   constructor(private file_name: string) {

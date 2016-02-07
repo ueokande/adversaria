@@ -12,7 +12,7 @@ app.on('window-all-closed', () => {
 
 app.on('ready', () => {
   var win = new BrowserWindow({width: 800, height: 600});
-  win.loadUrl('file://' + __dirname + '/../renderer/index.html');
+  win.loadUrl('file://' + __dirname + '/../views/index.html');
   win.on('closed', () => {
     win = null;
   });

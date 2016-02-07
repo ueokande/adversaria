@@ -1,12 +1,13 @@
-var assert = require('chai').assert;
-var dc = require('../../build/renderer/document_tree')
-var DocumentTree = dc.DocumentTree;
-DocumentTree.FileType = dc.FileType;
+const assert = require('chai').assert;
+const DocumentTree = require('../build/document_tree').DocumentTree;
+DocumentTree.FileType = require('../build/document_tree').FileType;
+
+
 
 describe('DocumentTree class', () => {
   var documentTree;
   beforeEach(() => {
-    documentTree = new DocumentTree(__dirname + '/../testdata/my_document');
+    documentTree = new DocumentTree(__dirname + '/testdata/my_document');
   });
 
   describe('#list', () => {
