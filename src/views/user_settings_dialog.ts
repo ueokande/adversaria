@@ -2,7 +2,7 @@
 
 var remote = require('remote')
 var dialog = remote.require('dialog');
-var settings = remote.require('../browser/user_settings');
+var settings = require('../user_settings');
 
 namespace UserSettingsDialog {
 

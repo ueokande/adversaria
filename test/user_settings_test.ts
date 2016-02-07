@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 var fs = require('fs');
-var settings = require('../../build/browser/user_settings');
+var settings = require('../build/user_settings');
 
 describe('UserSettings class', () => {
   var stub = null;

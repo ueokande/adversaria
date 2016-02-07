@@ -1,8 +1,7 @@
-///<reference path='../browser/note.ts'/>
-///<reference path='components/note-view/note-view.ts'/>
+///<reference path='note.ts'/>
+///<reference path='views/components/note-view/note-view.ts'/>
 
-var remote = require('remote')
-var Note = remote.require('../browser/note');
+var Note = require('./note');
 var path = require('path');
 
 export = class NoteController {

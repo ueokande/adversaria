@@ -1,10 +1,10 @@
-var Note = require('../../build/browser/note')
+var Note = require('../build/note')
 var assert = require('chai').assert;
 
 describe('Note class', () => {
   var note = null;
   before(function(done) {
-    Note.load(__dirname + '/../testdata/my_first_note.md', (err, loaded) => {
+    Note.load(__dirname + '/testdata/my_first_note.md', (err, loaded) => {
       note = loaded;
       done();
     });

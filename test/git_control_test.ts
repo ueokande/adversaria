@@ -1,4 +1,4 @@
-var GitControl = require('../../build/browser/git_control');
+var GitControl = require('../build/git_control');
 var fs = require('fs-extra');
 var assert = require('chai').assert;
 var NodeGit = require('nodegit');
@@ -18,7 +18,7 @@ describe('GitControl class', () => {
     before(function () {
       this.timeout(5000);
       fs.removeSync('/tmp/my_document/');
-      fs.copySync(__dirname + '/../../test/testdata/my_document',
+      fs.copySync(__dirname + '/../test/testdata/my_document',
                   '/tmp/my_document');
       return NodeGit.Repository.init('/tmp/my_document', 0)
         .then(() => { return git.commit_all_changes(); })

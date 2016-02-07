@@ -1,4 +1,4 @@
-///<reference path='components/navigator/navigator.ts'/>
+///<reference path='views/components/navigator/navigator.ts'/>
 ///<reference path='document_tree.ts'/>
 
 var path = require('path');
