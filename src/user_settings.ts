@@ -1,5 +1,5 @@
-var path = require('path');
-var fs = require('fs');
+import * as fs from 'fs';
+import * as path from 'path';
 
 function readData(key: string): any {
   try {
@@ -33,11 +33,11 @@ function writeData(key: string, value: any): void {
 
 export function exist(): boolean {
   try {
-    fs.access(configPath(), fs.F_OK);
+    fs.accessSync(configPath(), fs.F_OK);
   } catch(e) {
     return false
   }
-  return true
+  return true;
 }
 
 export function configDirectory(): string {

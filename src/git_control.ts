@@ -1,6 +1,6 @@
-var NodeGit = require('nodegit');
+const NodeGit = require('nodegit');
 
-export = class GitControl {
+export default class GitControl {
   constructor(private repository_path: string) {
   }
 

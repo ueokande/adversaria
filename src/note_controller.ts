@@ -1,10 +1,9 @@
-///<reference path='note.ts'/>
 ///<reference path='views/components/note-view/note-view.ts'/>
 
-var Note = require('./note');
-var path = require('path');
+import Note from './note';
+import * as path from 'path';
 
-export = class NoteController {
+export default class NoteController {
   private current_file: string;
 
   constructor() {

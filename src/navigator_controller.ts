@@ -1,11 +1,10 @@
 ///<reference path='views/components/navigator/navigator.ts'/>
-///<reference path='document_tree.ts'/>
 
-var path = require('path');
-var DocumentTree = require('./document_tree').DocumentTree;
+import * as path from 'path';
+const DocumentTree = require('./document_tree').DocumentTree;
 DocumentTree.FileType = require('./document_tree').FileType;
 
-export = class NavigatorController {
+export default class NavigatorController {
   private element: NavigatorElement;
   private fileSelectCallback: Function;
   private controller: NavigatorController;

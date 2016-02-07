@@ -1,7 +1,8 @@
-var assert = require('chai').assert;
-var dc = require('../build/document_tree')
-var DocumentTree = dc.DocumentTree;
-DocumentTree.FileType = dc.FileType;
+const assert = require('chai').assert;
+const DocumentTree = require('../build/document_tree').DocumentTree;
+DocumentTree.FileType = require('../build/document_tree').FileType;
+
+
 
 describe('DocumentTree class', () => {
   var documentTree;

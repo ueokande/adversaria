@@ -1,5 +1,5 @@
-var Note = require('../build/note')
-var assert = require('chai').assert;
+import Note from '../build/note'
+const assert = require('chai').assert;
 
 describe('Note class', () => {
   var note = null;

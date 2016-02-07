@@ -1,8 +1,8 @@
-var which = require('which')
-var child_process = require('child_process')
+import * as child_process from 'child_process';
+const which = require('which');
 
-var cli_editors = ['vi', 'vim', 'emacs', 'nano', 'pico'];
-var gui_editors = ['gvim', 'mate', 'subl'];
+const cli_editors = ['vi', 'vim', 'emacs', 'nano', 'pico'];
+const gui_editors = ['gvim', 'mate', 'subl'];
 
 function searchGuiEditor(): string {
   for (var editor of gui_editors) {

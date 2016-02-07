@@ -2,14 +2,14 @@
 ///<reference path='components/navigator/navigator.ts'/>
 ///<reference path='components/status-bar/status-bar.ts'/>
 
-var fs = require('fs');
-var path = require('path');
-var chokidar = require('chokidar');
-var settings = require('../user_settings')
-var GitControl = require('../git_control');
-var externalEditor = require('./../external_editor');
-var NoteController = require('../note_controller');
-var NavigatorController = require('../navigator_controller');
+import * as fs from 'fs';
+import * as path from 'path';
+import * as chokidar from 'chokidar';
+import * as settings from '../user_settings';
+import GitControl from '../git_control';
+import * as externalEditor from './../external_editor';
+import NoteController from '../note_controller';
+import NavigatorController from '../navigator_controller';
 
 var noteController;
 var watcher;

@@ -1,7 +1,7 @@
-var GitControl = require('../build/git_control');
-var fs = require('fs-extra');
-var assert = require('chai').assert;
-var NodeGit = require('nodegit');
+import GitControl from '../build/git_control';
+import * as fs from 'fs-extra';
+const assert = require('chai').assert;
+const NodeGit = require('nodegit');
 
 describe('GitControl class', () => {
   var git = new GitControl('/tmp/my_document')
