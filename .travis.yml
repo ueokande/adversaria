@@ -6,9 +6,11 @@ addons:
     sources:
     - ubuntu-toolchain-r-test
     packages:
+    - xvfb
     - gcc-4.9
     - g++-4.9
 cache:
+  apt: true
   directories:
   - node_modules
   - bower_modules
@@ -23,5 +25,8 @@ before_script:
 - git config --global user.name "Lorem Ipsum"
 - git config --global user.email lorem-ipsum@example.com
 - npm run build
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- sleep 3
 script:
 - npm test
