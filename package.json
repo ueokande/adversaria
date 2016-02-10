@@ -8,7 +8,7 @@
     "watch": "gulp watch",
     "serve": "gulp serve",
     "start": "electron .",
-    "test": "gulp test",
+    "test": "electron test-build/runner/main.js",
     "clean": "gulp clean"
   },
   "repository": {

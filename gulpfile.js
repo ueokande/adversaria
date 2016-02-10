@@ -107,11 +107,6 @@ gulp.task('clean', function() {
   return del(['build', 'test-build']);
 });
 
-gulp.task('test', function() {
-  return gulp.src(['test-build/**/*_test.js'])
-    .pipe(mocha({ reporter: 'dot'}));
-});
-
 gulp.task('serve', function () {
   electron.start();
 
