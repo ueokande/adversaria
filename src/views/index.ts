@@ -6,7 +6,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as chokidar from 'chokidar';
 import * as settings from '../user_settings';
-import GitControl from '../git_control';
+import GitRepository from '../git_repository';
 import * as externalEditor from './../external_editor';
 import NoteController from '../note_controller';
 import NavigatorController from '../navigator_controller';
@@ -23,7 +23,7 @@ window.onload = () => {
     UserSettingsDialog.show();
   }
 
-  git = new GitControl(document_path);
+  git = new GitRepository(document_path);
 
   noteController = new NoteController;
 
