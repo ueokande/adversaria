@@ -91,7 +91,7 @@ gulp.task('build:test', gulp.parallel(function() {
     .js
     .pipe(gulp.dest('test-build'));
 }, function() {
-  return gulp.src(['test/**/*.js', 'test/testdata/**/*'], { base: 'test' })
+  return gulp.src(['test/**/*.{js,html}', 'test/testdata/**/*'], { base: 'test' })
   .pipe(filter(needToCompile))
   .pipe(print(showBuild('clone')))
   .pipe(gulp.dest('test-build'));
@@ -105,11 +105,6 @@ gulp.task('watch', function() {
 
 gulp.task('clean', function() {
   return del(['build', 'test-build']);
-});
-
-gulp.task('test', function() {
-  return gulp.src(['test-build/**/*_test.js'])
-    .pipe(mocha({ reporter: 'dot'}));
 });
 
 gulp.task('serve', function () {
