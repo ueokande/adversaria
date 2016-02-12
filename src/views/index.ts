@@ -28,9 +28,9 @@ window.onload = () => {
   noteController = new NoteController;
 
   var navigatorController = new NavigatorController;
-  navigatorController.setDocumentPath(document_path);
+  navigatorController.setProjectPath(document_path);
   navigatorController.onFileSelect(function(filename, fullpath) {
-    if (watcher) { this.watcher.close(); }
+    if (watcher) { watcher.close(); }
     watcher = chokidar.watch(fullpath, { persistent: true });
     watcher.on('change', () => {
       noteController.open(fullpath)
