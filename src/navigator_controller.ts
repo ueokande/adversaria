@@ -1,21 +1,19 @@
 ///<reference path='views/components/navigator/navigator.ts'/>
 
 import * as path from 'path';
-const DocumentTree = require('./document_tree').DocumentTree;
-DocumentTree.FileType = require('./document_tree').FileType;
+import * as fs from 'fs';
 
 export default class NavigatorController {
   private element: NavigatorElement;
   private fileSelectCallback: Function;
-  private controller: NavigatorController;
-  private documentTree: any;
+  private base_dir: string;
+  private relative_path: string;
 
   constructor() {
-    this.controller = this;
     this.element = <NavigatorElement>document.getElementById('navigator');
     this.element.onFileClick((filename) => {
-      if (!this.documentTree || !this.fileSelectCallback) { return }
-      var fullpath = this.documentTree.fullPathOf(filename);
+      if (!this.fileSelectCallback) { return }
+      var fullpath = path.join(this.base_dir, this.relative_path, filename);
       this.fileSelectCallback(filename, fullpath);
     });
     this.element.onDirectoryClick((dirname) => {
@@ -23,8 +21,9 @@ export default class NavigatorController {
     });
   }
 
-  setDocumentPath(doc_path: string): void {
-    this.documentTree = new DocumentTree(doc_path);
+  setProjectPath(base_dir: string): void {
+    this.base_dir = base_dir;
+    this.relative_path = '/';
     this.selectDirectory('.');
   }
 
@@ -33,16 +32,27 @@ export default class NavigatorController {
   }
 
   selectDirectory(dir): void {
-    this.documentTree.enter(dir);
+    this.relative_path = path.join(this.relative_path, dir);
+    this.update()
+  }
+
+  update(): void {
     this.element.clearItems();
-    this.element.setParentButton(!this.documentTree.isRootDirectory());
-    this.documentTree.list((fullpath, filetype) => {
-      var basename = path.basename(fullpath);
-      if (filetype == DocumentTree.FileType.Directory) {
-        this.element.addItem(basename, FileType.Directory);
-      } if (filetype == DocumentTree.FileType.Note) {
-        this.element.addItem(basename, FileType.File);
-      }
+    this.element.setParentButton(this.relative_path != '/')
+
+    var project_full_path = path.join(this.base_dir, this.relative_path);
+    fs.readdir(project_full_path, (err, file_list) => {
+      var file_list = file_list.filter((name) => { return !/^\./.test(name) });
+      file_list.forEach((file) => {
+        var full_path = path.join(project_full_path, file);
+        var basename = path.basename(file);
+        var stats = fs.statSync(full_path);
+        if (stats.isDirectory()) {
+          this.element.addItem(basename, 'directory');
+        } else if (stats.isFile() && /\.md$/.test(full_path)) {
+          this.element.addItem(basename, 'file');
+        }
+      });
     });
   }
 }

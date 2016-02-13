@@ -6,14 +6,14 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as chokidar from 'chokidar';
 import * as settings from '../user_settings';
-import GitControl from '../git_control';
+import Project from '../project';
 import * as externalEditor from './../external_editor';
 import NoteController from '../note_controller';
 import NavigatorController from '../navigator_controller';
 
 var noteController;
 var watcher;
-var git;
+var project;
 
 window.onload = () => {
   var statusBar = <StatusBarElement>document.getElementById('status-bar');
@@ -23,20 +23,20 @@ window.onload = () => {
     UserSettingsDialog.show();
   }
 
-  git = new GitControl(document_path);
+  project = new Project(document_path);
 
   noteController = new NoteController;
 
   var navigatorController = new NavigatorController;
-  navigatorController.setDocumentPath(document_path);
+  navigatorController.setProjectPath(document_path);
   navigatorController.onFileSelect(function(filename, fullpath) {
-    if (watcher) { this.watcher.close(); }
+    if (watcher) { watcher.close(); }
     watcher = chokidar.watch(fullpath, { persistent: true });
     watcher.on('change', () => {
       noteController.open(fullpath)
 
       statusBar.text = 'Commiting files...'
-      git.commit_all_changes().then((oid) => {
+      project.repository.commit_all_changes().then((oid) => {
         statusBar.text = 'Committed to ' + oid.tostrS().slice(0,7);
       });
     });

@@ -1,7 +1,5 @@
-enum FileType { File, Directory };
-
 interface NavigatorElement extends HTMLUListElement{
-  addItem(filename: string, filetype: FileType): void;
+  addItem(filename: string, filetype: string): void;
   clearItems(): void;
   setParentButton(on: boolean): void;
   onFileClick(callback: Function): void;
@@ -13,11 +11,11 @@ interface NavigatorElement extends HTMLUListElement{
 var currentDocument = (<any>document).currentScript.ownerDocument;
 
 var prot = Object.create(HTMLUListElement.prototype);
-prot.addItem = function(filename: string, filetype: FileType) {
+prot.addItem = function(filename: string, filetype: string) {
   var template;
   var textnode = document.createTextNode(filename);
   var clone;
-  if (filetype == FileType.Directory) {
+  if (filetype == 'directory') {
     template = currentDocument.getElementById('navigator-directory-item-template');
     clone = <HTMLElement>document.importNode(template.content, true);
     var li = clone.querySelector('li')
@@ -25,7 +23,7 @@ prot.addItem = function(filename: string, filetype: FileType) {
     li.addEventListener('click', () => {
       this.directoryClickCallback(filename);
     });
-  } else if (filetype == FileType.File) {
+  } else if (filetype == 'file') {
     template = currentDocument.getElementById('navigator-file-item-template');
     clone = <HTMLElement>document.importNode(template.content, true);
     var li = clone.querySelector('li')
