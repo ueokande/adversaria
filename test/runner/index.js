@@ -2,6 +2,7 @@ var remote = require('remote')
 var remoteConsole = remote.require('console')
 var ipc = require('ipc')
 var Mocha = require('mocha')
+var assert = require('chai').assert
 var path = require('path')
 var glob = require("glob")
 

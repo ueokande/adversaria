@@ -1,4 +1,3 @@
-const assert = require('chai').assert;
 import * as fs from 'fs';
 import * as settings from '../build/user_settings';
 

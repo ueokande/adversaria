@@ -85,6 +85,7 @@ gulp.task('build:test', gulp.parallel(function() {
     .pipe(filter(needToCompile))
     .pipe(print(showBuild('tsc')))
     .pipe(addsrc('./typings/main.d.ts'))
+    .pipe(addsrc('./test/lib.d.ts'))
     .pipe(typescript({ target: 'es5',
                        module: 'commonjs',
                        sourceMap: true }))

@@ -1,5 +1,4 @@
 import Note from '../build/note'
-const assert = require('chai').assert;
 
 describe('Note class', () => {
   var note = null;
