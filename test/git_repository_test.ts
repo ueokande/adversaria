@@ -1,6 +1,5 @@
 import GitRepository from '../build/git_repository';
 import * as fs from 'fs-extra';
-const assert = require('chai').assert;
 const NodeGit = require('nodegit');
 
 describe('GitRepository class', () => {
