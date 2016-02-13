@@ -11,13 +11,13 @@ export default class NavigatorController {
 
   constructor() {
     this.element = <NavigatorElement>document.getElementById('navigator');
-    this.element.onFileClick((filename) => {
+    this.element.addEventListener('file_click', (e: any) => {
       if (!this.fileSelectCallback) { return }
-      var fullpath = path.join(this.base_dir, this.relative_path, filename);
-      this.fileSelectCallback(filename, fullpath);
+      var fullpath = path.join(this.base_dir, this.relative_path, e.detail.filename);
+      this.fileSelectCallback(e.detail.filename, fullpath);
     });
-    this.element.onDirectoryClick((dirname) => {
-      this.selectDirectory(dirname);
+    this.element.addEventListener('directory_click', (e: any) => {
+      this.selectDirectory(e.detail.directory);
     });
   }
 
