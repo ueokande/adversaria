@@ -13,13 +13,18 @@ prot.addItem = function(filename: string, filetype: string) {
   var textnode = document.createTextNode(filename);
   var li = document.createElement('li');
   li.appendChild(textnode);
-  li.addEventListener('click', () => {
-    var e = new CustomEvent('item_click', {
+  li.addEventListener('click', (e) => {
+    if (this.active_item_) { this.active_item_.className = '' }
+    this.active_item_ = e.target;
+    this.active_item_.className = 'active'
+    var new_event = new CustomEvent('item_click', {
       detail: { filename: filename }
     });
-    this.dispatchEvent(e);
+    this.dispatchEvent(new_event);
   });
   this.appendChild(li);
+
+  this.active_item_ = null;
 }
 
 prot.clearItems = function() {
@@ -27,6 +32,12 @@ prot.clearItems = function() {
     this.removeChild(this.firstChild);
   }
 }
+
+Object.defineProperty(prot, 'activeItem', {
+  get: function() {
+    return this.active_item_;
+  }
+});
 
 var _ = (<any>document).registerElement('adv-note-list', {
   prototype: prot,

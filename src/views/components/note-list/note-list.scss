@@ -6,5 +6,8 @@ ul[is=adv-note-list] {
     padding : 8px 8px;
     cursor: pointer;
     list-style: none;
+    &.active {
+      background-color: #ddddff;
+    }
   }
 }
