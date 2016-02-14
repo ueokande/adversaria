@@ -10,13 +10,6 @@ export default class NavigatorController {
 
   constructor() {
     this.element = <NavigatorElement>document.getElementById('navigator');
-    this.element.addEventListener('file_click', (e: any) => {
-      var fullpath = path.join(this.base_dir, this.relative_path, e.detail.filename);
-      var event = new CustomEvent('adv.file_select', {
-        detail: { fullpath: fullpath }
-      });
-      window.dispatchEvent(event);
-    });
     this.element.addEventListener('directory_click', (e: any) => {
       this.selectDirectory(e.detail.directory);
     });
@@ -31,6 +24,12 @@ export default class NavigatorController {
   selectDirectory(dir): void {
     this.relative_path = path.join(this.relative_path, dir);
     this.update()
+
+    var full_path = path.join(this.base_dir, this.relative_path);
+    var event = new CustomEvent('adv.directory_select', {
+      detail: { fullpath: full_path }
+    });
+    window.dispatchEvent(event);
   }
 
   update(): void {
@@ -39,16 +38,15 @@ export default class NavigatorController {
 
     var project_full_path = path.join(this.base_dir, this.relative_path);
     fs.readdir(project_full_path, (err, file_list) => {
+      if (err) { throw err; }
+
       var file_list = file_list.filter((name) => { return !/^\./.test(name) });
       file_list.forEach((file) => {
         var full_path = path.join(project_full_path, file);
-        var basename = path.basename(file);
         var stats = fs.statSync(full_path);
-        if (stats.isDirectory()) {
-          this.element.addItem(basename, 'directory');
-        } else if (stats.isFile() && /\.md$/.test(full_path)) {
-          this.element.addItem(basename, 'file');
-        }
+        if (!stats.isDirectory()) { return; }
+        var basename = path.basename(file);
+        this.element.addItem(basename, 'directory');
       });
     });
   }
