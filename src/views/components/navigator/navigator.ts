@@ -2,8 +2,6 @@ interface NavigatorElement extends HTMLUListElement{
   addItem(filename: string, filetype: string): void;
   clearItems(): void;
   setParentButton(on: boolean): void;
-  onFileClick(callback: Function): void;
-  onDirectoryClick(callback: Function): void;
 }
 
 (function() {
@@ -21,7 +19,10 @@ prot.addItem = function(filename: string, filetype: string) {
     var li = clone.querySelector('li')
     li.appendChild(textnode);
     li.addEventListener('click', () => {
-      this.directoryClickCallback(filename);
+      var event = new CustomEvent('directory_click', {
+        detail: { directory: filename }
+      });
+      this.dispatchEvent(event);
     });
   } else if (filetype == 'file') {
     template = currentDocument.getElementById('navigator-file-item-template');
@@ -29,7 +30,10 @@ prot.addItem = function(filename: string, filetype: string) {
     var li = clone.querySelector('li')
     li.appendChild(textnode);
     li.addEventListener('click', () => {
-      this.fileClickCallback(filename);
+      var event = new CustomEvent('file_click', {
+        detail: { filename: filename }
+      });
+      this.dispatchEvent(event);
     });
   }
   this.appendChild(clone);
@@ -49,26 +53,18 @@ prot.setParentButton = function(on: boolean) {
     }
     var li = document.createElement('li');
     li.className = 'file_item parent';
-    li.addEventListener('click', () => { this.directoryClickCallback('..') })
+    li.addEventListener('click', () => {
+      var event = new CustomEvent('directory_click', {
+        detail: { directory: '..' }
+      });
+      this.dispatchEvent(event);
+    });
     this.appendChild(li);
   } else {
     var li = <HTMLLIElement>document.querySelector('li.parent');
     if (li) { li.remove(); }
   }
   this.parentButton = on;
-}
-
-prot.createdCallback = function () {
-  this.fileClickCallback = function() {};
-  this.directoryClickCallback = function() {};
-}
-
-prot.onFileClick = function(callback) {
-  this.fileClickCallback = callback;
-}
-
-prot.onDirectoryClick = function(callback) {
-  this.directoryClickCallback = callback;
 }
 
 var _ = (<any>document).registerElement('adv-navigator', {
