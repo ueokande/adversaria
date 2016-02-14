@@ -2,9 +2,11 @@
 
 import Note from './note';
 import * as path from 'path';
+import * as chokidar from 'chokidar';
 
 export default class NoteController {
   private current_file: string;
+  private watcher: any;
 
   constructor() {
     var noteView = <NoteViewElement>document.getElementById('note-view')
@@ -13,13 +15,20 @@ export default class NoteController {
     noteView.path = '';
   }
 
-  open(file): void {
-    this.current_file = file;;
-    Note.load(file, (err, loaded) => {
+  open(fullpath): void {
+    this.current_file = fullpath;;
+    Note.load(fullpath, (err, loaded) => {
       var noteView = <NoteViewElement>document.getElementById('note-view')
       noteView.title = loaded.title();
       noteView.body = loaded.markdownAsHtml();
       noteView.path = loaded.fileName();
+    });
+
+    if (this.watcher) { this.watcher.close(); }
+    this.watcher = chokidar.watch(fullpath, { persistent: true });
+    this.watcher.on('change', () => {
+      var event = new CustomEvent('adv.project.changed');
+      this.open(fullpath);
     });
   }
 

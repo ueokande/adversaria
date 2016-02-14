@@ -5,16 +5,17 @@ import * as fs from 'fs';
 
 export default class NavigatorController {
   private element: NavigatorElement;
-  private fileSelectCallback: Function;
   private base_dir: string;
   private relative_path: string;
 
   constructor() {
     this.element = <NavigatorElement>document.getElementById('navigator');
     this.element.addEventListener('file_click', (e: any) => {
-      if (!this.fileSelectCallback) { return }
       var fullpath = path.join(this.base_dir, this.relative_path, e.detail.filename);
-      this.fileSelectCallback(e.detail.filename, fullpath);
+      var event = new CustomEvent('adv.file_select', {
+        detail: { fullpath: fullpath }
+      });
+      window.dispatchEvent(event);
     });
     this.element.addEventListener('directory_click', (e: any) => {
       this.selectDirectory(e.detail.directory);
@@ -25,10 +26,6 @@ export default class NavigatorController {
     this.base_dir = base_dir;
     this.relative_path = '/';
     this.selectDirectory('.');
-  }
-
-  onFileSelect(callback: Function): void {
-    this.fileSelectCallback = callback;
   }
 
   selectDirectory(dir): void {
