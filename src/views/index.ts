@@ -8,9 +8,11 @@ import * as settings from '../user_settings';
 import Project from '../project';
 import * as externalEditor from './../external_editor';
 import NoteController from '../note_controller';
+import NoteListController from '../note_list_controller';
 import NavigatorController from '../navigator_controller';
 
 var noteController;
+var noteListController;
 var project;
 
 window.onload = () => {
@@ -22,6 +24,7 @@ window.onload = () => {
   project = new Project(document_path);
 
   noteController = new NoteController;
+  noteListController = new NoteListController();
 
   var navigatorController = new NavigatorController;
   navigatorController.setProjectPath(document_path);
@@ -47,4 +50,8 @@ window.addEventListener('adv.project.changed', () => {
 
 window.addEventListener('adv.file_select', (e: any) => {
   noteController.open(e.detail.fullpath);
+});
+
+window.addEventListener('adv.directory_select', (e: any) => {
+  noteListController.setNoteListDirectory(e.detail.fullpath);
 });

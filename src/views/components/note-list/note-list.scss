@@ -1,0 +1,10 @@
+ul[is=adv-note-list] {
+  width: 240px;
+  background-color: white;
+  color: black;
+  li {
+    padding : 8px 8px;
+    cursor: pointer;
+    list-style: none;
+  }
+}

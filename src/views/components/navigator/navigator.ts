@@ -10,33 +10,17 @@ var currentDocument = (<any>document).currentScript.ownerDocument;
 
 var prot = Object.create(HTMLUListElement.prototype);
 prot.addItem = function(filename: string, filetype: string) {
-  var template;
   var textnode = document.createTextNode(filename);
-  var clone;
-  if (filetype == 'directory') {
-    template = currentDocument.getElementById('navigator-directory-item-template');
-    clone = <HTMLElement>document.importNode(template.content, true);
-    var li = clone.querySelector('li')
-    li.appendChild(textnode);
-    li.addEventListener('click', () => {
-      var event = new CustomEvent('directory_click', {
-        detail: { directory: filename }
-      });
-      this.dispatchEvent(event);
+  var li = document.createElement('li');
+  li.appendChild(textnode);
+  li.classList.add('directory');
+  li.addEventListener('click', () => {
+    var event = new CustomEvent('directory_click', {
+      detail: { directory: filename }
     });
-  } else if (filetype == 'file') {
-    template = currentDocument.getElementById('navigator-file-item-template');
-    clone = <HTMLElement>document.importNode(template.content, true);
-    var li = clone.querySelector('li')
-    li.appendChild(textnode);
-    li.addEventListener('click', () => {
-      var event = new CustomEvent('file_click', {
-        detail: { filename: filename }
-      });
-      this.dispatchEvent(event);
-    });
-  }
-  this.appendChild(clone);
+    this.dispatchEvent(event);
+  });
+  this.appendChild(li);
 }
 
 prot.clearItems = function() {
