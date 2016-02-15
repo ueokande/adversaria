@@ -1,14 +1,14 @@
-///<reference path='views/components/navigator/navigator.ts'/>
+///<reference path='views/components/note-list/note-list.ts'/>
 
 import * as fs from 'fs';
 import * as path from 'path';
 
 export default class NoteListController {
-  private element: NavigatorElement;
+  private element: NoteListElement;
   private base_dir: string;
 
   constructor() {
-    this.element = <NavigatorElement>document.getElementById('note-list');
+    this.element = <NoteListElement>document.getElementById('note-list');
     this.element.addEventListener('item_click', (e: any) => {
       var fullpath = path.join(this.base_dir, e.detail.filename);
       var event = new CustomEvent('adv.file_select', {
