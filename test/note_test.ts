@@ -9,12 +9,28 @@ describe('Note class', () => {
     });
   });
 
+  describe('#title property', () => {
+    context('when the title is empty', () => {
+      it('returns from file name', (done) => {
+        Note.load(__dirname + '/testdata/my_first_note.md', (err, loaded) => {
+          assert.equal(loaded.title, 'my first note');
+          done();
+        });
+      });
+    });
+
+    context('when the title is given', () => {
+      it('returns from title attribute', (done) => {
+        Note.load(__dirname + '/testdata/my_second_note.md', (err, loaded) => {
+          assert.equal(loaded.title, 'Adversaria in the future');
+          done();
+        });
+      });
+    });
+  });
+
   it('File name of the note', () => {
     assert.include(note.fileName(), 'note.md');
-  })
-
-  it('transforms title of the note', () => {
-    assert.include(note.title, 'my first note');
   })
 
   it('contains the contents', () => {
