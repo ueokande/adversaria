@@ -14,7 +14,7 @@ describe('Note class', () => {
   })
 
   it('transforms title of the note', () => {
-    assert.include(note.title(), 'my first note');
+    assert.include(note.title, 'my first note');
   })
 
   it('contains the contents', () => {

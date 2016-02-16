@@ -23,7 +23,7 @@ export default class Note {
     return this.file_name;
   }
 
-  title(): string {
+  get title(): string {
     return path.basename(this.file_name)
       .replace(/_/g, ' ')
       .replace(/.md$/, '');
