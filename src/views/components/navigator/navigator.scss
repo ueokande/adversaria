@@ -2,41 +2,59 @@ ul[is=adv-navigator] {
   width: 240px;
   color: #fefeff;
   background-color: #272f32;
-  .directory {
-    padding : 8px 8px;
+  input { display: none; }
+  li {
+    list-style: none;
     cursor: pointer;
-    &:before {
-      content: '';
-      width: 0;
-      height: 0;
-      display: inline-block;
-      left: 4px;
-      top: 50%;
-      margin-top: -6px;
-      border-style: solid;
-      border-width: 6px 0 6px 6px;
-      border-color: transparent transparent transparent #fff;
+    position: relative;
+    label {
+      cursor: pointer;
+      display: block;
+      line-height: 32px;
     }
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.2);
+    label.directory {
+      padding-left: 24px;
+      &:hover {
+        background-color: #474f52;
+      }
     }
-  }
-  .parent {
-    text-align: center;
-    padding-top: 0;
-    padding-bottom: 0;
-    &:before {
-      content: '';
-      width: 0;
+    input[type=radio]:checked + label {
+      background-color: #474f52;
+    }
+    label.collapsible {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 32px;
+      width: 24px;
+      &:hover {
+        background-color: #474f52;
+      }
+      &:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        display: inline-block;
+        top: 50%;
+        left: 6px;
+        margin-top: -6px;
+        border-style: solid;
+        border-width: 6px 0 6px 6px;
+        border-color: transparent transparent transparent #fff;
+        transition-duration: 100ms;
+      }
+    }
+    input[type=checkbox]:checked + label.collapsible:before {
+      transform: rotate(90deg);
+    }
+    input[type=checkbox] + * + ul {
+      padding-left: 16px;
       height: 0;
-      display: inline-block;
-      left: 50%;
-      top: 50%;
-      margin-top: -6px;
-      margin-left: -6px;
-      border-style: solid;
-      border-width: 0 6px 6px 6px;
-      border-color: transparent transparent #fff transparent;
+      overflow: hidden;
+    }
+    input[type=checkbox]:checked + * + ul {
+      height: auto;
     }
   }
 }
