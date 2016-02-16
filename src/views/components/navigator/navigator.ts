@@ -19,30 +19,42 @@ prot.setDirectoryTree = function(tree) {
   var setTree = function(parent: HTMLElement, nodes: any, base: string) {
     for (var key in nodes) {
       var fullpath = base + '/' + key;
-      var textnode = document.createTextNode(key);
-      var li = document.createElement('li');
-      var label = document.createElement('label');
-      label.htmlFor = fullpath;
-      label.appendChild(textnode);
-      label.addEventListener('click', function() {
+
+      var radio = document.createElement('input');
+      radio.type = 'radio';
+      radio.name = 'directory';
+      radio.id = fullpath;
+      radio.addEventListener('click', function() {
         var event = new CustomEvent('directory_click', {
-          detail: { directory: this.htmlFor }
+          detail: { directory: this.id }
         });
         element.dispatchEvent(event);
       });
+
+      var directoryLabel = document.createElement('label');
+      directoryLabel.className = 'directory';
+      directoryLabel.htmlFor = radio.id;
+      directoryLabel.appendChild(document.createTextNode(key));
+
+      var li = document.createElement('li');
+      li.appendChild(radio);
+      li.appendChild(directoryLabel);
+
       if (Object.keys(nodes[key]).length != 0) {
-        label.className = 'collapsible';
-        var input = document.createElement('input');
-        input.type = 'checkbox';
-        input.id = fullpath;
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.id = 'collapsible-' + fullpath;
+
+        var collapsibleLabel = document.createElement('label');
+        collapsibleLabel.className = 'collapsible'
+        collapsibleLabel.htmlFor = checkbox.id;
+
         var ul = document.createElement('ul');
         setTree(ul, nodes[key], fullpath);
 
-        li.appendChild(input);
-        li.appendChild(label);
+        li.appendChild(checkbox);
+        li.appendChild(collapsibleLabel);
         li.appendChild(ul);
-      } else {
-        li.appendChild(label);
       }
       parent.appendChild(li);
     }
