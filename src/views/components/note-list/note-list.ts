@@ -14,18 +14,16 @@ prot.addItem = function(filename: string, title: string, body: string) {
   var clone = <HTMLElement>document.importNode(template.content, true);
   clone.querySelector('.title').appendChild(document.createTextNode(title));
   clone.querySelector('.body').appendChild(document.createTextNode(body));
-  var that = this;
-  clone.querySelector('li').addEventListener('click', function() {
-    if (that.active_item_) { that.active_item_.className = '' }
-    that.active_item_ = this;
-    this.className = 'active'
+  var input = clone.querySelector('input')
+  var label = <HTMLLabelElement>clone.querySelector('label')
+  input.id = label.htmlFor = filename;
+  clone.querySelector('li').addEventListener('click', () => {
     var new_event = new CustomEvent('item_click', {
       detail: { filename: filename }
     });
-    that.dispatchEvent(new_event);
+    this.dispatchEvent(new_event);
   });
   this.appendChild(clone);
-  this.active_item_ = null;
 }
 
 prot.clearItems = function() {

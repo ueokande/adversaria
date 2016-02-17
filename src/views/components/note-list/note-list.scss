@@ -2,20 +2,26 @@ ul[is=adv-note-list] {
   background-color: white;
   color: black;
   li {
-    padding : 8px 8px;
-    cursor: pointer;
-    list-style: none;
-    border-bottom: 2px solid lightgray;
-    &.active {
+    input[type=radio] {
+      display: none;
+    }
+    input[type=radio]:checked + label {
       background-color: #ddddff;
     }
-    .title {
-      font-weight: bold;
-    }
-    .body {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    label {
+      display: block;
+      padding : 8px 8px;
+      cursor: pointer;
+      list-style: none;
+      border-bottom: 2px solid lightgray;
+      .title {
+        font-weight: bold;
+      }
+      .body {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 }
