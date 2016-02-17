@@ -25,7 +25,7 @@ export default class Note {
     });
   }
 
-  fileName(): string {
+  get fileName(): string {
     return this.file_name;
   }
 

@@ -35,9 +35,12 @@ describe('Note class', () => {
     });
   });
 
-  it('File name of the note', () => {
-    assert.include(note.fileName(), 'note.md');
-  })
+  describe('filename property', () => {
+    it('returns file name', () => {
+      assert.include(note.fileName, 'my_first_note.md');
+    })
+  });
+
 
   it('contains the contents', () => {
     assert.include(note.markdownAsHtml(), 'Hello adversaria');
