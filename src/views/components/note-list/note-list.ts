@@ -33,12 +33,6 @@ prot.clearItems = function() {
   }
 }
 
-Object.defineProperty(prot, 'activeItem', {
-  get: function() {
-    return this.active_item_;
-  }
-});
-
 var _ = (<any>document).registerElement('adv-note-list', {
   prototype: prot,
   extends: 'ul'
