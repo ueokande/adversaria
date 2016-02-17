@@ -21,7 +21,7 @@ export default class NoteController {
       var noteView = <NoteViewElement>document.getElementById('note-view')
       noteView.title = loaded.title;
       noteView.body = loaded.markdownAsHtml();
-      noteView.path = loaded.fileName();
+      noteView.path = loaded.fileName;
     });
 
     if (this.watcher) { this.watcher.close(); }
