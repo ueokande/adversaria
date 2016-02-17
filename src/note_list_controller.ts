@@ -2,6 +2,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import Note from './note';
 
 export default class NoteListController {
   private element: NoteListElement;
@@ -34,9 +35,10 @@ export default class NoteListController {
         var full_path = path.join(this.base_dir, file);
         var basename = path.basename(file);
         var stats = fs.statSync(full_path);
-        if (stats.isFile() && /\.md$/.test(full_path)) {
-          this.element.addItem(basename, 'file');
-        }
+        if (!stats.isFile() || ! /\.md$/.test(full_path)) { return }
+        Note.load(full_path, (err, note: Note) => {
+          this.element.addItem(basename, note.title, note.body);
+        });
       });
     });
   }

@@ -17,14 +17,21 @@ body {
   overflow: hidden;
   align-items: stretch;
   .side-panel {
-    display: flex;
+    min-width: 10%;
     flex-direction: column;
     .navigator {
       overflow-y: auto;
       flex-grow: 1;
     }
   }
+  .note-list {
+    min-width: 10%;
+    max-width: 25%;
+    overflow-y: auto;
+  }
   adv-note-view {
+    flex-grow: 1;
+    max-width: 80%;
     overflow-y: auto;
   }
 }
