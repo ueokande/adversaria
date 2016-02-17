@@ -19,7 +19,7 @@ export default class NoteController {
     this.current_file = fullpath;;
     Note.load(fullpath, (err, loaded) => {
       var noteView = <NoteViewElement>document.getElementById('note-view')
-      noteView.title = loaded.title();
+      noteView.title = loaded.title;
       noteView.body = loaded.markdownAsHtml();
       noteView.path = loaded.fileName();
     });

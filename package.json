@@ -28,6 +28,7 @@
     "del": "^2.2.0",
     "electron-connect": "^0.3.3",
     "electron-prebuilt": "^0.36.0",
+    "front-matter": "^2.0.6",
     "fs-extra": "^0.26.3",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-add-src": "^0.2.0",
