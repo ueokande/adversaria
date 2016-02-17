@@ -9,7 +9,7 @@ describe('Note class', () => {
     });
   });
 
-  describe('#title property', () => {
+  describe('title property', () => {
     context('when the title is empty', () => {
       it('returns from file name', (done) => {
         Note.load(__dirname + '/testdata/my_first_note.md', (err, loaded) => {
@@ -41,12 +41,13 @@ describe('Note class', () => {
     })
   });
 
+  describe('#markdownAsHtml method', () => {
+    it('contains the contents', () => {
+      assert.include(note.markdownAsHtml(), 'Hello adversaria');
+    })
 
-  it('contains the contents', () => {
-    assert.include(note.markdownAsHtml(), 'Hello adversaria');
-  })
-
-  it('contains markdown as html', () => {
-    assert.include(note.markdownAsHtml(), '<h1>');
-  })
+    it('contains markdown as html', () => {
+      assert.include(note.markdownAsHtml(), '<h1>');
+    })
+  });
 })
