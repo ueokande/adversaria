@@ -5,8 +5,17 @@ ul[is=adv-note-list] {
     padding : 8px 8px;
     cursor: pointer;
     list-style: none;
+    border-bottom: 2px solid lightgray;
     &.active {
       background-color: #ddddff;
+    }
+    .title {
+      font-weight: bold;
+    }
+    .body {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
