@@ -29,6 +29,12 @@ describe('Note class', () => {
     });
   });
 
+  describe('body property', () => {
+    it('returns original content', () => {
+      assert.include(note.body, '========');
+    });
+  });
+
   it('File name of the note', () => {
     assert.include(note.fileName(), 'note.md');
   })

@@ -8,7 +8,7 @@ md.use(emoji);
 
 export default class Note {
   private attributes: any;
-  private markdown_as_html: string;
+  private content: string;
   private file_name: string
 
   constructor() {
@@ -20,7 +20,7 @@ export default class Note {
       var note = new Note();
       note.file_name = path;
       note.attributes = content.attributes;
-      note.markdown_as_html = md.render(content.body);
+      note.content = content.body;
       cb(err, note);
     });
   }
@@ -39,7 +39,11 @@ export default class Note {
     }
   }
 
+  get body(): string {
+    return this.content;
+  }
+
   markdownAsHtml(): string {
-    return this.markdown_as_html;
+    return md.render(this.content);
   }
 }
