@@ -1,4 +1,3 @@
-///<reference path='views/user_settings_dialog.ts'/>
 ///<reference path='views/components/navigator/navigator.ts'/>
 ///<reference path='views/components/status-bar/status-bar.ts'/>
 
@@ -7,6 +6,7 @@ import * as path from 'path';
 import * as settings from './user_settings';
 import Project from './project';
 import * as externalEditor from './external_editor';
+import UserSettingsController from './user_settings_controller';
 import NoteController from './note_controller';
 import NoteListController from './note_list_controller';
 import NavigatorController from './navigator_controller';
@@ -14,12 +14,16 @@ import NavigatorController from './navigator_controller';
 export function run() {
   var noteController;
   var noteListController;
+  var userSettingsController;
   var project;
 
   window.onload = () => {
+    var userSettingsController = new UserSettingsController();
+
     var document_path = settings.loadDocumentPath();
     if (!document_path) {
-      UserSettingsDialog.show();
+      userSettingsController.dialogShow();
+      return;
     }
 
     project = new Project(document_path);
