@@ -23,16 +23,15 @@
 
     <dialog id='user_settings_dialog'>
       <header>
-        <button class='close-button' onclick="UserSettingsDialog.close()">&#x2716;</button>
+        <button class='close-button'>&#x2716;</button>
       </header>
       <label>
         <span>Document location: </span>
-        <input id="documentDirectory" type="text" size="36" readonly>
-        <button onclick="UserSettingsDialog.showDirectoryDialog()">Change...</button>
+        <input class='current-directory' type="text" size="36" readonly>
+        <button class='show-directory-dialog'>Change...</button>
       </label>
     </dialog>
 
-    <script src="user_settings_dialog.js"></script>
     <script src="index.js"></script>
     <script>require('electron-connect').client.create()</script>
   </body>
