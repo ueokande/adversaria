@@ -5,17 +5,20 @@ import * as settings from './user_settings';
 import Project from './project';
 import * as externalEditor from './external_editor';
 import UserSettingsController from './user_settings_controller';
+import SSHConfigController from './ssh_config_controller';
 import NoteController from './note_controller';
 import NoteListController from './note_list_controller';
 import NavigatorController from './navigator_controller';
 
 export default class Application {
   static project: Project = null;
+  static sshConfigController: SSHConfigController;
 
   static run() {
     var noteController;
     var noteListController;
     var userSettingsController;
+    Application.sshConfigController = new SSHConfigController();
 
     window.onload = () => {
       var userSettingsController = new UserSettingsController();
