@@ -1,2 +1,2 @@
-import * as Application from '../application';
+import Application from '../application';
 Application.run();

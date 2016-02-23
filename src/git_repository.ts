@@ -1,6 +1,8 @@
 const NodeGit = require('nodegit');
 
 export default class GitRepository {
+  private cert;
+
   constructor(private repository_path: string) {
   }
 
@@ -36,4 +38,30 @@ export default class GitRepository {
       })
   }
 
+  setCredFromSSHKey(public_key: string, private_key: string, passphrase: string): Promise<any> {
+    return this.setCredFromCallback(function(url, username) {
+      return NodeGit.Cred.sshKeyNew(username, public_key, private_key, passphrase);
+    });
+  }
+
+  setCredFromSSHAgent(): Promise<any> {
+    return this.setCredFromCallback(function(url, username) {
+      return NodeGit.Cred.sshKeyFromAgent();
+    });
+  }
+
+  private setCredFromCallback(cert_callback: Function): Promise<any> {
+    var remote;
+    return NodeGit.Repository.open(this.repository_path).then(function(repository) {
+      return repository.getRemote('origin');
+    })
+    .then((_remote) => {
+      remote = _remote;
+      this.cert = cert_callback;
+      return remote.connect(NodeGit.Enums.DIRECTION.FETCH, {
+        certificateCheck: () => { return 1; },
+        credentials: cert_callback
+      });
+    });
+  }
 }

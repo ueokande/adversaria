@@ -36,6 +36,17 @@ body {
   }
 }
 
+.dialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding : 16px;
+  border: none;
+  border-radius : 8px;
+  box-shadow : 0 0 8px gray;
+}
+
 #user_settings_dialog {
   position: absolute;
   left: 0;
