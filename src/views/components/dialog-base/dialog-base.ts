@@ -1,7 +1,11 @@
 ///<reference path='../../../../typings/user_defined/html_dialog_element.d.ts'/>
 
 interface DialogBaseElement extends HTMLDialogElement {
+  cancelable: boolean;
+  title: string;
 }
+
+var DialogBaseElement;
 
 (function() {
 
@@ -69,7 +73,7 @@ Object.defineProperty(prot, 'cancelable', {
   }
 });
 
-var _ = (<any>document).registerElement('adv-dialog-base', {
+DialogBaseElement = (<any>document).registerElement('adv-dialog-base', {
   prototype: prot,
   extends: 'dialog'
 })
