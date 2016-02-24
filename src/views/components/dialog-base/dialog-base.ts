@@ -15,6 +15,17 @@ prot.createdCallback = function () {
   this.classList.add('dialog');
   this.appendChild(clone);
   this.attributeChangedCallback();
+
+  this.querySelector('.ok-button').addEventListener('click', () => {
+    var event = new CustomEvent('ok');
+    this.dispatchEvent(event);
+  });
+  var listener = () => {
+    var event = new CustomEvent('cancel');
+    this.dispatchEvent(event);
+  }
+  this.querySelector('.cancel-button').addEventListener('click', listener);
+  this.querySelector('.close-button').addEventListener('click', listener);
 }
 
 prot.attributeChangedCallback = function () {
