@@ -1,4 +1,3 @@
-///<reference path='../typings/user_defined/html_dialog_element.d.ts'/>
 ///<reference path='views/components/user-settings-dialog/user-settings-dialog.ts'/>
 
 const remote = require('remote')

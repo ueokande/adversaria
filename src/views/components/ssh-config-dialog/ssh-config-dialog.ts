@@ -2,6 +2,11 @@
 ///<reference path='../dialog-base/dialog-base.ts'/>
 
 interface SSHConfigDialogElement extends DialogBaseElement {
+  publicKey: string;
+  privateKey: string;
+  passphrase: string;
+  authFromKey: boolean;
+  authFromAgent: boolean;
 }
 
 var DialogBaseElement;

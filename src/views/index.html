@@ -10,6 +10,7 @@
     <link rel="import" href="components/status-bar/status-bar.html">
     <link rel="import" href="components/dialog-base/dialog-base.html">
     <link rel="import" href="components/user-settings-dialog/user-settings-dialog.html">
+    <link rel="import" href="components/ssh-config-dialog/ssh-config-dialog.html">
     <title>First Electron App</title>
   </head>
   <body>
@@ -24,27 +25,7 @@
     <adv-note-view id='note-view'></adv-note-view>
 
     <dialog is='adv-user-settings-dialog' id='user_settings_dialog' cancelable></dialog>
-
-    <dialog id='ssh_config_dialog' class='dialog'>
-      <header>
-      </header>
-      <div>
-        <input id='auth_type_from_key' type="radio"  name='auth_type' checked/>
-        <label for='auth_type_from_key'>From key</label>
-        <div class='radio-group'>
-          <label>SSH public key: <input id='ssh_public_key' type="text" /></label><br>
-          <label>SSH private key: <input id='ssh_private_key' type="text" /></label><br>
-          <label>Passphrase: <input id='ssh_passphrase' type="password" /></label>
-        </div>
-      </div>
-      <div>
-        <input id='auth_type_from_agent' type="radio"  name='auth_type' />
-        <label for='auth_type_from_agent'>From agent</label>
-      </div>
-      <div>
-        <button id='ssh_config_dialog_ok_button'>OK</button>
-      </div>
-    </dialog>
+    <dialog is='adv-ssh-config-dialog' id='ssh_config_dialog' cancelable></dialog>
 
     <script src="index.js"></script>
     <script>require('electron-connect').client.create()</script>
