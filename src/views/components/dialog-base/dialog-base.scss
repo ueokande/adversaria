@@ -1,0 +1,38 @@
+.dialog {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  padding : 16px;
+  border: none;
+  border-radius : 8px;
+  box-shadow : 0 0 8px gray;
+
+  header {
+    text-align: right;
+    margin-bottom: 16px;
+    .title {
+      font-weight: bold;
+    }
+    .close-button {
+      background: none;
+      border: none;
+      line-height: 1;
+      padding: 0;
+      margin: 0;
+    }
+  }
+  footer {
+    text-align: right;
+    .ok-button {
+    }
+    .cancel-button {
+    }
+  }
+  input, button {
+    padding: 4px;
+  }
+  .invisible {
+    display: none;
+  }
+}
