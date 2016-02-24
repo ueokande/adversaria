@@ -27,6 +27,7 @@ describe('dialog-base', () => {
 
   describe('elements', () => {
     it('has each elements', () => {
+      assert.ok(dialog.querySelector('.content'));
       assert.ok(dialog.querySelector('.title'));
       assert.ok(dialog.querySelector('.ok-button'));
       assert.ok(dialog.querySelector('.cancel-button'));

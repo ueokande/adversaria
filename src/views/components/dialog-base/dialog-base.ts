@@ -31,6 +31,12 @@ prot.attributeChangedCallback = function () {
   }
 }
 
+Object.defineProperty(prot, 'content', {
+  get: function() {
+    return this.querySelector('.content');
+  }
+});
+
 Object.defineProperty(prot, 'title', {
   set: function(value) {
     var elem = this.querySelector('.title');
