@@ -2,6 +2,7 @@
 ///<reference path='../dialog-base/dialog-base.ts'/>
 
 interface UserSettingsDialogElement extends DialogBaseElement {
+  projectPath: string;
 }
 
 var DialogBaseElement;

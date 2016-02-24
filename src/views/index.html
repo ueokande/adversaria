@@ -8,6 +8,8 @@
     <link rel="import" href="components/note-list/note-list.html">
     <link rel="import" href="components/note-view/note-view.html">
     <link rel="import" href="components/status-bar/status-bar.html">
+    <link rel="import" href="components/dialog-base/dialog-base.html">
+    <link rel="import" href="components/user-settings-dialog/user-settings-dialog.html">
     <title>First Electron App</title>
   </head>
   <body>
@@ -21,16 +23,7 @@
 
     <adv-note-view id='note-view'></adv-note-view>
 
-    <dialog id='user_settings_dialog' class='dialog'>
-      <header>
-        <button class='close-button'>&#x2716;</button>
-      </header>
-      <label>
-        <span>Document location: </span>
-        <input class='current-directory' type="text" size="36" readonly>
-        <button class='show-directory-dialog'>Change...</button>
-      </label>
-    </dialog>
+    <dialog is='adv-user-settings-dialog' id='user_settings_dialog' cancelable></dialog>
 
     <dialog id='ssh_config_dialog' class='dialog'>
       <header>
