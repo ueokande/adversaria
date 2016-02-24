@@ -1,24 +1,26 @@
-///<reference path='../typings/user_defined/html_dialog_element.d.ts'/>
+///<reference path='views/components/ssh-config-dialog/ssh-config-dialog.ts'/>
 
 import Application from './application';
 
 export default class SSHConfigController {
-  private element: HTMLDialogElement;
+  private dialog: SSHConfigDialogElement;
 
   constructor() {
-    this.element = <HTMLDialogElement>document.getElementById('ssh_config_dialog');
-    document.getElementById('ssh_config_dialog_ok_button').addEventListener('click', this.commitConfigure);
+    this.dialog = <SSHConfigDialogElement>document.getElementById('ssh_config_dialog');
+    this.dialog.addEventListener('ok', this.commitConfigure);
+    this.dialog.addEventListener('cancel', this.dialogClose);
   }
 
   dialogShow() {
-    this.element.showModal();
+    this.dialog.showModal();
   }
 
   dialogClose() {
-    this.element.close();
+    this.dialog.close();
   }
 
   commitConfigure = () => {
+    var dialog = this.dialog;
     function whilst(condition, action) {
       function wrap(fn) { return Promise.resolve(fn()); }
       return wrap(function loop() {
@@ -30,12 +32,12 @@ export default class SSHConfigController {
 
     function setCredPromise() {
       var repo = Application.project.repository;
-      if ((<HTMLInputElement>document.getElementById('auth_type_from_key')).checked) {
-        var public_key = (<HTMLInputElement>document.getElementById('ssh_public_key')).value;
-        var private_key = (<HTMLInputElement>document.getElementById('ssh_private_key')).value;
-        var passphrase = (<HTMLInputElement>document.getElementById('ssh_passphrase')).value;
+      if (dialog.authFromKey) {
+        var public_key = dialog.publicKey;
+        var private_key = dialog.privateKey;
+        var passphrase = dialog.passphrase;
         return repo.setCredFromSSHKey(public_key, private_key, passphrase);
-      } else if ((<HTMLInputElement>document.getElementById('auth_type_from_agent')).checked) {
+      } else if (dialog.authFromAgent) {
         return repo.setCredFromSSHAgent();
       }
     }

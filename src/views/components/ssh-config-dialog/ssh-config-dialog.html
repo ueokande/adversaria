@@ -1,0 +1,18 @@
+<script src='ssh-config-dialog.js'></script>
+<link rel='stylesheet' href='ssh-config-dialog.css'>
+
+<template id='ssh-config-dialog-contents-template'>
+  <div>
+    <input id='auth_from_key' type="radio"  name='auth_type' checked/>
+    <label for='auth_from_key'>From key</label>
+    <div class='radio-group'>
+      <label>SSH public key: <input id='public_key' type="text" /></label><br>
+      <label>SSH private key: <input id='private_key' type="text" /></label><br>
+      <label>Passphrase: <input id='passphrase' type="password" /></label>
+    </div>
+  </div>
+  <div>
+    <input id='auth_from_agent' type="radio"  name='auth_type' />
+    <label for='auth_from_agent'>From agent</label>
+  </div>
+</template>
