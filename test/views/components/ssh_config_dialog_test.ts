@@ -1,29 +1,11 @@
+import * as helper from '../../test_helper';
+
 describe('ssh-config-dialog', () => {
-  var link = null;
-  var doc = null;
   var dialog = null;
-
-  before((done) => {
-    link = document.createElement('link');
-    link.rel = 'import';
-    link.href = '../../build/views/components/ssh-config-dialog/ssh-config-dialog.html';
-    link.onload = () => { done() }
-    document.head.appendChild(link);
-  });
-
-  after(() => {
-    link.remove();
-  });
-
-  beforeEach(() => {
-    doc = (<any>document).implementation.createHTMLDocument();
-    dialog = doc.createElement('dialog', 'adv-ssh-config-dialog');
-    doc.body.appendChild(dialog);
-  });
-
-  afterEach(() => {
-    doc.documentElement.remove()
-  });
+  helper.useComponent(
+    '../../build/views/components/ssh-config-dialog/ssh-config-dialog.html',
+    (_) => { dialog = _ },
+    'dialog', 'adv-ssh-config-dialog');
 
   describe('publicKey property', () => {
     it('visible public key', () => {

@@ -1,29 +1,11 @@
+import * as helper from '../../test_helper';
+
 describe('user-settings-dialog', () => {
-  var link = null;
-  var doc = null;
   var dialog = null;
-
-  before((done) => {
-    link = document.createElement('link');
-    link.rel = 'import';
-    link.href = '../../build/views/components/user-settings-dialog/user-settings-dialog.html';
-    link.onload = () => { done() }
-    document.head.appendChild(link);
-  });
-
-  after(() => {
-    link.remove();
-  });
-
-  beforeEach(() => {
-    doc = (<any>document).implementation.createHTMLDocument();
-    dialog = doc.createElement('dialog', 'adv-user-settings-dialog');
-    doc.body.appendChild(dialog);
-  });
-
-  afterEach(() => {
-    doc.documentElement.remove()
-  });
+  helper.useComponent(
+    '../../build/views/components/user-settings-dialog/user-settings-dialog.html',
+    (_) => { dialog = _ },
+    'dialog', 'adv-user-settings-dialog');
 
   describe('events', () => {
     it('emit select_directory event', (done) => {

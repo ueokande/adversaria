@@ -1,29 +1,11 @@
+import * as helper from '../../test_helper';
+
 describe('dialog-base', () => {
-  var link = null;
-  var doc = null;
   var dialog = null;
-
-  before((done) => {
-    link = document.createElement('link');
-    link.rel = 'import';
-    link.href = '../../build/views/components/dialog-base/dialog-base.html';
-    link.onload = () => { done() }
-    document.head.appendChild(link);
-  });
-
-  after(() => {
-    link.remove();
-  });
-
-  beforeEach(() => {
-    doc = (<any>document).implementation.createHTMLDocument();
-    dialog = doc.createElement('dialog', 'adv-dialog-base');
-    doc.body.appendChild(dialog);
-  });
-
-  afterEach(() => {
-    doc.documentElement.remove()
-  });
+  helper.useComponent(
+    '../../build/views/components/dialog-base/dialog-base.html',
+    (_) => { dialog = _ },
+    'dialog', 'adv-dialog-base');
 
   describe('elements', () => {
     it('has each elements', () => {
