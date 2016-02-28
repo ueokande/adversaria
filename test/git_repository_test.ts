@@ -1,6 +1,8 @@
+///<reference path="../typings/user_defined/nodegit.d.ts"/>
+
 import GitRepository from "../build/git_repository";
 import * as fs from "fs-extra";
-const NodeGit = require("nodegit");
+import * as NodeGit from "nodegit";
 
 describe("GitRepository class", () => {
   let git = new GitRepository("/tmp/my_document");

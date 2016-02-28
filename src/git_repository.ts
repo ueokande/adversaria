@@ -1,4 +1,6 @@
-const NodeGit = require("nodegit");
+///<reference path="../typings/user_defined/nodegit.d.ts"/>
+
+import * as NodeGit from "nodegit";
 
 export default class GitRepository {
   private cert: any;
