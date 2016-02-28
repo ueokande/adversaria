@@ -4,6 +4,7 @@
   "description": "Git-based note app",
   "main": "build/browser/main.js",
   "scripts": {
+    "lint": "gulp lint",
     "build": "gulp build",
     "watch": "gulp watch",
     "serve": "gulp serve",

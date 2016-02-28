@@ -3,6 +3,7 @@ var addsrc = require('gulp-add-src');
 var filter = require('gulp-filter');
 var print = require('gulp-print');
 var del = require('del');
+var tslint = require("gulp-tslint")
 var typescript = require('gulp-typescript');
 var sass = require('gulp-sass');
 var electron = require('electron-connect').server.create();
@@ -56,6 +57,12 @@ function showBuild(compile) {
            " => " + outputFile(input).replace(__dirname, '');
   }
 }
+
+gulp.task('lint', gulp.parallel(function() {
+  return gulp.src(['src/**/*.ts', 'test/**/*.ts'])
+    .pipe(tslint({ configurations: 'tslint.json' }))
+    .pipe(tslint.report("verbose"));
+}));
 
 gulp.task('build:src', gulp.parallel(function() {
   return gulp.src('src/**/*.ts')
