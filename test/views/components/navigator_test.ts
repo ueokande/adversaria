@@ -1,56 +1,56 @@
-import * as helper from '../../test_helper';
+import * as helper from "../../test_helper";
 
-describe('navigator', () => {
-  var nav = null;
+describe("navigator", () => {
+  let nav = undefined;
   helper.useComponent(
-    '../../build/views/components/navigator/navigator.html',
+    "../../build/views/components/navigator/navigator.html",
     (_) => { nav = _; },
-    'ul', 'adv-navigator');
+    "ul", "adv-navigator");
 
-  var tree = {
+  let tree = {
     usr: {
       bin: {},
       lib: { git: {} },
       share: { git: {} },
     },
     etc: { git: {} }
-  }
+  };
   beforeEach(() => {
     nav.setDirectoryTree(tree);
   });
 
-  describe('elements', () => {
+  describe("elements", () => {
 
-    it('has collapsible checkbox', () => {
-      var doc = nav.ownerDocument;
-      var usr_lib_check = doc.getElementById('collapsible-/usr/lib');
-      assert.ok(usr_lib_check);
-      assert.equal(usr_lib_check.type, 'checkbox');
+    it("has collapsible checkbox", () => {
+      let doc = nav.ownerDocument;
+      let usrLibCheck = doc.getElementById("collapsible-/usr/lib");
+      assert.ok(usrLibCheck);
+      assert.equal(usrLibCheck.type, "checkbox");
     });
 
-    it('doee not have collapsible checkbox for leaf directory', () => {
-      var doc = nav.ownerDocument;
-      var usr_bin_check = doc.getElementById('collapsible-/usr/bin');
-      assert.notOk(usr_bin_check);
+    it("doee not have collapsible checkbox for leaf directory", () => {
+      let doc = nav.ownerDocument;
+      let usrBinCheck = doc.getElementById("collapsible-/usr/bin");
+      assert.notOk(usrBinCheck);
     });
 
-    it('has selectable radio button', () => {
-      var doc = nav.ownerDocument;
-      var etc_git_radio = doc.getElementById('/etc/git');
-      assert.ok(etc_git_radio);
-      assert.equal(etc_git_radio.type, 'radio');
+    it("has selectable radio button", () => {
+      let doc = nav.ownerDocument;
+      let etcGitRadio = doc.getElementById("/etc/git");
+      assert.ok(etcGitRadio);
+      assert.equal(etcGitRadio.type, "radio");
     });
   });
 
-  describe('events', () => {
-    it('emits directory_click events', (done) => {
-      var doc = nav.ownerDocument;
-      var etc_git_radio = doc.getElementById('/etc/git');
-      nav.addEventListener('directory_click', (e) => {
-        assert.equal(e.detail.directory, '/etc/git');
+  describe("events", () => {
+    it("emits directory_click events", (done) => {
+      let doc = nav.ownerDocument;
+      let etcGitRadio = doc.getElementById("/etc/git");
+      nav.addEventListener("directory_click", (e) => {
+        assert.equal(e.detail.directory, "/etc/git");
         done();
       });
-      etc_git_radio.click();
+      etcGitRadio.click();
     });
   });
-})
+});

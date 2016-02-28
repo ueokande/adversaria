@@ -1,81 +1,89 @@
-///<reference path='../../../../typings/user_defined/html_dialog_element.d.ts'/>
+///<reference path="../../../../typings/user_defined/html_dialog_element.d.ts"/>
 
 interface DialogBaseElement extends HTMLDialogElement {
+  createdCallback: () => any;
   cancelable: boolean;
   title: string;
 }
 
-var DialogBaseElement;
+interface Window {
+  DialogBaseElement: DialogBaseElement;
+}
 
-(function() {
+declare var DialogBaseElement: {
+  prototype: DialogBaseElement;
+};
 
-var currentDocument = (<any>document).currentScript.ownerDocument;
+(function(): any {
 
-var prot = Object.create(HTMLDialogElement.prototype);
+let currentDocument = (<any>document).currentScript.ownerDocument;
 
-prot.createdCallback = function () {
-  var template = currentDocument.getElementById('dialog-base-template');
-  var clone = <HTMLElement>document.importNode(template.content, true);
-  this.classList.add('dialog');
+let prot = Object.create(HTMLDialogElement.prototype);
+
+prot.createdCallback = function (): any {
+  let template = currentDocument.getElementById("dialog-base-template");
+  let clone = <HTMLElement>document.importNode(template.content, true);
+  this.classList.add("dialog");
   this.appendChild(clone);
   this.attributeChangedCallback();
 
-  this.querySelector('.ok-button').addEventListener('click', () => {
-    var event = new CustomEvent('ok');
+  this.querySelector(".ok-button").addEventListener("click", () => {
+    let event = new CustomEvent("ok");
     this.dispatchEvent(event);
   });
-  var listener = () => {
-    var event = new CustomEvent('cancel');
+  let listener = () => {
+    let event = new CustomEvent("cancel");
     this.dispatchEvent(event);
-  }
-  this.querySelector('.cancel-button').addEventListener('click', listener);
-  this.querySelector('.close-button').addEventListener('click', listener);
-}
+  };
+  this.querySelector(".cancel-button").addEventListener("click", listener);
+  this.querySelector(".close-button").addEventListener("click", listener);
+};
 
-prot.attributeChangedCallback = function () {
+prot.attributeChangedCallback = function (): any {
   if (this.cancelable) {
-    var cancelbutton = this.querySelector('.cancel-button')
-    cancelbutton.classList.remove('invisible');
-    var closebutton = this.querySelector('.close-button')
-    closebutton.classList.remove('invisible');
+    let cancelbutton = this.querySelector(".cancel-button");
+    cancelbutton.classList.remove("invisible");
+    let closebutton = this.querySelector(".close-button");
+    closebutton.classList.remove("invisible");
   } else {
-    var cancelbutton = this.querySelector('.cancel-button')
-    cancelbutton.classList.add('invisible');
-    var closebutton = this.querySelector('.close-button')
-    closebutton.classList.add('invisible');
+    let cancelbutton = this.querySelector(".cancel-button");
+    cancelbutton.classList.add("invisible");
+    let closebutton = this.querySelector(".close-button");
+    closebutton.classList.add("invisible");
   }
-}
+};
 
-Object.defineProperty(prot, 'content', {
-  get: function() {
-    return this.querySelector('.content');
-  }
-});
-
-Object.defineProperty(prot, 'title', {
-  set: function(value) {
-    var elem = this.querySelector('.title');
-    elem.textContent = value;
+Object.defineProperty(prot, "content", {
+  get: function(): string {
+    return this.querySelector(".content");
   }
 });
 
-Object.defineProperty(prot, 'cancelable', {
-  set: function(value) {
+Object.defineProperty(prot, "title", {
+  set: function(value: string): string {
+    let elem = this.querySelector(".title");
+    return elem.textContent = value;
+  }
+});
+
+Object.defineProperty(prot, "cancelable", {
+  set: function(value: string): string {
     if (value) {
-      this.setAttribute('cancelable', '');
+      this.setAttribute("cancelable", "");
     } else {
-      this.removeAttribute('cancelable');
+      this.removeAttribute("cancelable");
     }
+    return value;
   },
 
-  get: function() {
-    return this.hasAttribute('cancelable');
+  get: function(): string {
+    return this.hasAttribute("cancelable");
   }
 });
 
-DialogBaseElement = (<any>document).registerElement('adv-dialog-base', {
+window.DialogBaseElement = (<any>document).registerElement("adv-dialog-base", {
   prototype: prot,
-  extends: 'dialog'
-})
+  extends: "dialog"
+});
 
 })();

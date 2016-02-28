@@ -1,24 +1,24 @@
-import * as fs from 'fs';
-import * as path from 'path';
-const md = require('markdown-it')();
-const emoji = require('markdown-it-emoji');
-const frontMatter = require('front-matter');
+import * as fs from "fs";
+import * as path from "path";
+const md = require("markdown-it")();
+const emoji = require("markdown-it-emoji");
+const frontMatter = require("front-matter");
 
 md.use(emoji);
 
 export default class Note {
   private attributes: any;
   private content: string;
-  private file_name: string
+  private _fileName: string;
 
   constructor() {
   }
 
-  static load(path, cb): void {
-    fs.readFile(path, 'utf-8', (err, text) => {
-      var content = frontMatter(text);
-      var note = new Note();
-      note.file_name = path;
+  public static load(path: string, cb: Function): void {
+    fs.readFile(path, "utf-8", (err, text) => {
+      let content = frontMatter(text);
+      let note = new Note();
+      note._fileName = path;
       note.attributes = content.attributes;
       note.content = content.body;
       cb(err, note);
@@ -26,16 +26,16 @@ export default class Note {
   }
 
   get fileName(): string {
-    return this.file_name;
+    return this._fileName;
   }
 
   get title(): string {
-    if('title' in this.attributes) {
+    if ("title" in this.attributes) {
       return this.attributes.title;
     } else {
-      return path.basename(this.file_name)
-        .replace(/_/g, ' ')
-        .replace(/.md$/, '');
+      return path.basename(this._fileName)
+        .replace(/_/g, " ")
+        .replace(/.md$/, "");
     }
   }
 
@@ -43,7 +43,7 @@ export default class Note {
     return this.content;
   }
 
-  markdownAsHtml(): string {
+  public markdownAsHtml(): string {
     return md.render(this.content);
   }
 }

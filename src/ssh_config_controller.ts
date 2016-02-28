@@ -1,49 +1,49 @@
-///<reference path='views/components/ssh-config-dialog/ssh-config-dialog.ts'/>
+///<reference path="views/components/ssh-config-dialog/ssh-config-dialog.ts"/>
 
-import Application from './application';
+import Application from "./application";
 
 export default class SSHConfigController {
   private dialog: SSHConfigDialogElement;
 
   constructor() {
-    this.dialog = <SSHConfigDialogElement>document.getElementById('ssh_config_dialog');
-    this.dialog.addEventListener('ok', this.commitConfigure);
-    this.dialog.addEventListener('cancel', this.dialogClose);
+    this.dialog = <SSHConfigDialogElement>document.getElementById("ssh_config_dialog");
+    this.dialog.addEventListener("ok", this.commitConfigure);
+    this.dialog.addEventListener("cancel", this.dialogClose);
   }
 
-  dialogShow() {
+  public dialogShow(): void {
     this.dialog.showModal();
   }
 
-  dialogClose() {
+  public dialogClose(): void {
     this.dialog.close();
   }
 
-  commitConfigure = () => {
-    var dialog = this.dialog;
-    function whilst(condition, action) {
-      function wrap(fn) { return Promise.resolve(fn()); }
-      return wrap(function loop() {
-	if (condition()) {
-	  return wrap(action).then(loop);
-	}
+  private commitConfigure: EventListener = (): void => {
+    let dialog = this.dialog;
+    function whilst(condition: Function, action: any): Promise<Function> {
+      function wrap(fn: Function): Promise<any> { return Promise.resolve(fn()); }
+      return wrap(function loop(): Promise<Function> {
+        if (condition()) {
+          return wrap(action).then(loop);
+        }
       });
-    };
+    }
 
-    function setCredPromise() {
-      var repo = Application.project.repository;
+    function setCredPromise(): Promise<any> {
+      let repo = Application.project.repository;
       if (dialog.authFromKey) {
-        var public_key = dialog.publicKey;
-        var private_key = dialog.privateKey;
-        var passphrase = dialog.passphrase;
-        return repo.setCredFromSSHKey(public_key, private_key, passphrase);
+        let publicKey = dialog.publicKey;
+        let privateKey = dialog.privateKey;
+        let passphrase = dialog.passphrase;
+        return repo.setCredFromSSHKey(publicKey, privateKey, passphrase);
       } else if (dialog.authFromAgent) {
         return repo.setCredFromSSHAgent();
       }
     }
 
-    var success = false;
-    whilst(() => { return success },
+    let success = false;
+    whilst(() => { return success; },
            setCredPromise()
             .then(() => {
               success = true;
@@ -52,6 +52,6 @@ export default class SSHConfigController {
             .catch((err) => {
               alert(err);
             })
-    )
-  }
+    );
+  };
 }
