@@ -1,21 +1,24 @@
-import * as fs from 'fs';
-import * as path from 'path';
+
+import * as fs from "fs";
+import * as path from "path";
 
 function readData(key: string): any {
+  "use strict";
   try {
-    var text = fs.readFileSync(configPath(), 'utf-8');
-  } catch(e) {
-    return null;
+    let text = fs.readFileSync(configPath(), "utf-8");
+    let data = JSON.parse(text);
+    return data[key] || undefined;
+  } catch (e) {
+    return undefined;
   }
-  var data = JSON.parse(text);
-  return data[key] || null;
 }
 
 function touchConfigFile(): void {
+  "use strict";
   if (exist()) {
     return;
   }
-  var dir = configDirectory();
+  let dir = configDirectory();
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir);
   }
@@ -23,36 +26,42 @@ function touchConfigFile(): void {
 }
 
 function writeData(key: string, value: any): void {
+  "use strict";
   touchConfigFile();
-  var text = fs.readFileSync(configPath(), 'utf-8');
-  var obj = JSON.parse(text);
+  let text = fs.readFileSync(configPath(), "utf-8");
+  let obj = JSON.parse(text);
   obj[key] = value;
   text = JSON.stringify(obj);
   fs.writeFileSync(configPath(), text);
 }
 
 export function exist(): boolean {
+  "use strict";
   try {
     fs.accessSync(configPath(), fs.F_OK);
-  } catch(e) {
-    return false
+  } catch (e) {
+    return false;
   }
   return true;
 }
 
 export function configDirectory(): string {
-  var home_dir = process.env.HOME || process.env.USERPROFILE;
-  return path.join(home_dir, '.adversaria');
+  "use strict";
+  let homeDir = process.env.HOME || process.env.USERPROFILE;
+  return path.join(homeDir, ".adversaria");
 }
 
 export function configPath(): string {
-  return path.join(configDirectory(), 'config.json');
+  "use strict";
+  return path.join(configDirectory(), "config.json");
 }
 
 export function loadDocumentPath(): string {
-  return readData('document_path');
+  "use strict";
+  return readData("document_path");
 }
 
 export function saveDocumentPath(path: string): void {
-  writeData('document_path', path);
+  "use strict";
+  writeData("document_path", path);
 }

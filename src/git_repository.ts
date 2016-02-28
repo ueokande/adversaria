@@ -1,26 +1,26 @@
-const NodeGit = require('nodegit');
+const NodeGit = require("nodegit");
 
 export default class GitRepository {
-  private cert;
+  private cert: any;
 
-  constructor(private repository_path: string) {
+  constructor(private repositoryPath: string) {
   }
 
-  path(): string {
-    return this.repository_path;
+  public path(): string {
+    return this.repositoryPath;
   }
 
-  commit_all_changes(): Promise<any> {
-    var index, treeOid, repository;
+  public commit_all_changes(): Promise<any> {
+    let index, treeOid, repository;
 
-    return NodeGit.Repository.open(this.repository_path)
+    return NodeGit.Repository.open(this.repositoryPath)
       .then((_) => {
         repository = _;
         return repository.openIndex();
       })
       .then((_) => {
         index = _;
-        return index.addAll()
+        return index.addAll();
       })
       .then(() => {
         index.write();
@@ -28,39 +28,39 @@ export default class GitRepository {
       })
       .then((_) => {
         treeOid = _;
-        return repository.getHeadCommit()
+        return repository.getHeadCommit();
       })
       .then((head) => {
-        var sign = NodeGit.Signature.default(repository);
+        let sign = NodeGit.Signature.default(repository);
         return repository.createCommit(
             "HEAD", sign, sign,
-            'Update', treeOid, head ? [head] : []);
-      })
+            "Update", treeOid, head ? [head] : []);
+      });
   }
 
-  setCredFromSSHKey(public_key: string, private_key: string, passphrase: string): Promise<any> {
-    return this.setCredFromCallback(function(url, username) {
-      return NodeGit.Cred.sshKeyNew(username, public_key, private_key, passphrase);
+  public setCredFromSSHKey(publicKey: string, privateKey: string, passphrase: string): Promise<any> {
+    return this.setCredFromCallback((url: string, username: string) => {
+      return NodeGit.Cred.sshKeyNew(username, publicKey, privateKey, passphrase);
     });
   }
 
-  setCredFromSSHAgent(): Promise<any> {
-    return this.setCredFromCallback(function(url, username) {
-      return NodeGit.Cred.sshKeyFromAgent();
+  public setCredFromSSHAgent(): Promise<any> {
+    return this.setCredFromCallback((url: string, username: string) => {
+      return NodeGit.Cred.sshKeyFromAgent(username);
     });
   }
 
-  private setCredFromCallback(cert_callback: Function): Promise<any> {
-    var remote;
-    return NodeGit.Repository.open(this.repository_path).then(function(repository) {
-      return repository.getRemote('origin');
+  private setCredFromCallback(certCallback: Function): Promise<any> {
+    let remote;
+    return NodeGit.Repository.open(this.repositoryPath).then((repository) => {
+      return repository.getRemote("origin");
     })
     .then((_remote) => {
       remote = _remote;
-      this.cert = cert_callback;
+      this.cert = certCallback;
       return remote.connect(NodeGit.Enums.DIRECTION.FETCH, {
-        certificateCheck: () => { return 1; },
-        credentials: cert_callback
+        certificateCheck: (): number => { return 1; },
+        credentials: certCallback
       });
     });
   }

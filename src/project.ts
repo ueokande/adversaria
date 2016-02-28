@@ -1,19 +1,17 @@
-import * as fs from 'fs';
-import GitRepository from './git_repository'
+import GitRepository from "./git_repository";
 
 export default class Project {
-
   private repo: GitRepository;
 
   constructor(private _path: string) {
     this.repo = new GitRepository(_path);
   }
 
-  get repository() {
+  get repository(): GitRepository {
     return this.repo;
   }
 
-  get path() {
+  get path(): string {
     return this._path;
   }
 }

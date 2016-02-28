@@ -1,31 +1,38 @@
-import * as child_process from 'child_process';
-const which = require('which');
+import * as child_process from "child_process";
+const which = require("which");
 
-const cli_editors = ['vi', 'vim', 'emacs', 'nano', 'pico'];
-const gui_editors = ['gvim', 'mate', 'subl'];
+const CLI_EDITORS = ["vi", "vim", "emacs", "nano", "pico"];
+const GUI_EDITORS = ["gvim", "mate", "subl"];
 
 function searchGuiEditor(): string {
-  for (var editor of gui_editors) {
-    try { return which.sync(editor); }
-    catch (e) {}
+  "use strict";
+  for (let editor of GUI_EDITORS) {
+    try {
+      return which.sync(editor);
+    } finally {
+    }
   }
-  return null;
+  return undefined;
 }
 
 function searchCliEditor(): string {
-  for (var editor of cli_editors) {
-    try { return which.sync(editor); }
-    catch (e) {}
+  "use strict";
+  for (let editor of CLI_EDITORS) {
+    try {
+      return which.sync(editor);
+    } finally {
+    }
   }
-  return null;
+  return undefined;
 }
 
-export function open(path): boolean {
-  var editor = null;
-  if ((editor = searchGuiEditor()) != null) {
+export function open(path: string): boolean {
+  "use strict";
+  let editor = undefined;
+  if (!(editor = searchGuiEditor())) {
     child_process.spawn(editor, [path]);
-  } else if ((editor = searchCliEditor()) != null) {
-    child_process.spawn('xterm', ['-e', editor + " " + path]);
+  } else if (!(editor = searchCliEditor())) {
+    child_process.spawn("xterm", ["-e", editor + " " + path]);
   } else {
     return false;
   }

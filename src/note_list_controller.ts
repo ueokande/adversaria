@@ -1,42 +1,42 @@
-///<reference path='views/components/note-list/note-list.ts'/>
+///<reference path="views/components/note-list/note-list.ts"/>
 
-import * as fs from 'fs';
-import * as path from 'path';
-import Note from './note';
+import * as fs from "fs";
+import * as path from "path";
+import Note from "./note";
 
 export default class NoteListController {
   private element: NoteListElement;
-  private base_dir: string;
+  private baseDir: string;
 
   constructor() {
-    this.element = <NoteListElement>document.getElementById('note-list');
-    this.element.addEventListener('item_click', (e: any) => {
-      var fullpath = path.join(this.base_dir, e.detail.filename);
-      var event = new CustomEvent('adv.file_select', {
+    this.element = <NoteListElement>document.getElementById("note-list");
+    this.element.addEventListener("item_click", (e: any) => {
+      let fullpath = path.join(this.baseDir, e.detail.filename);
+      let event = new CustomEvent("adv.file_select", {
         detail: { fullpath: fullpath }
       });
       window.dispatchEvent(event);
     });
   }
 
-  setNoteListDirectory(base_dir: string): void {
-    this.base_dir = base_dir;
+  public setNoteListDirectory(baseDir: string): void {
+    this.baseDir = baseDir;
     this.update();
   }
 
-  update(): void {
+  public update(): void {
     this.element.clearItems();
 
-    fs.readdir(this.base_dir, (err, file_list) => {
+    fs.readdir(this.baseDir, (err, fileList) => {
       if (err) { throw err; }
 
-      var file_list = file_list.filter((name) => { return !/^\./.test(name) });
-      file_list.forEach((file) => {
-        var full_path = path.join(this.base_dir, file);
-        var basename = path.basename(file);
-        var stats = fs.statSync(full_path);
-        if (!stats.isFile() || ! /\.md$/.test(full_path)) { return }
-        Note.load(full_path, (err, note: Note) => {
+      fileList = fileList.filter((name) => { return !/^\./.test(name); });
+      fileList.forEach((file) => {
+        let fullPath = path.join(this.baseDir, file);
+        let basename = path.basename(file);
+        let stats = fs.statSync(fullPath);
+        if (!stats.isFile() || ! /\.md$/.test(fullPath)) { return; }
+        Note.load(fullPath, (_err, note: Note) => {
           this.element.addItem(basename, note.title, note.body);
         });
       });
