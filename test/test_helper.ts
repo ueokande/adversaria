@@ -1,16 +1,18 @@
-export function useComponent(import_path: string,
+export function useComponent(importPath: string,
                              callback: Function,
                              tagName: string,
-                             is: string) {
-  var link = null;
-  var doc = null;
-  var dialog = null;
+                             is: string): void {
+  "use strict";
+
+  let link = undefined;
+  let doc = undefined;
+  let dialog = undefined;
 
   before((done) => {
-    link = document.createElement('link');
-    link.rel = 'import';
-    link.href = import_path;
-    link.onload = () => { done() }
+    link = document.createElement("link");
+    link.rel = "import";
+    link.href = importPath;
+    link.onload = () => { done(); };
     document.head.appendChild(link);
   });
 
@@ -26,8 +28,8 @@ export function useComponent(import_path: string,
   });
 
   afterEach(() => {
-    doc.documentElement.remove()
+    doc.documentElement.remove();
   });
 
-  return function() { return dialog };
+  return;
 }
