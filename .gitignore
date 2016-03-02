@@ -8,3 +8,4 @@ bower_components
 
 /typings/*
 !/typings/user_defined
+!/typings/user_defined.d.ts

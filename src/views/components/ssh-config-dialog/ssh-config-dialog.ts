@@ -1,4 +1,3 @@
-///<reference path="../../../../typings/user_defined/html_dialog_element.d.ts"/>
 ///<reference path="../dialog-base/dialog-base.ts"/>
 
 interface SSHConfigDialogElement extends DialogBaseElement {

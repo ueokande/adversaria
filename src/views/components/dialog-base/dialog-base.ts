@@ -1,5 +1,3 @@
-///<reference path="../../../../typings/user_defined/html_dialog_element.d.ts"/>
-
 interface DialogBaseElement extends HTMLDialogElement {
   createdCallback: () => any;
   cancelable: boolean;
