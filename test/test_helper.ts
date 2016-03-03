@@ -21,7 +21,7 @@ export function useComponent(importPath: string,
   });
 
   beforeEach(() => {
-    doc = (<any>document).implementation.createHTMLDocument();
+    doc = document.implementation.createHTMLDocument();
     dialog = doc.createElement(tagName, is);
     doc.body.appendChild(dialog);
     callback(dialog);

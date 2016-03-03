@@ -6,11 +6,11 @@ interface NoteListElement extends HTMLUListElement {
 
 (function(): void {
 
-let currentDocument = (<any>document).currentScript.ownerDocument;
+let currentDocument = document.currentScript.ownerDocument;
 
 let prot = Object.create(HTMLUListElement.prototype);
 prot.addItem = function(filename: string, title: string, body: string): void {
-  let template = currentDocument.getElementById("note-list-item-template");
+  let template = <HTMLTemplateElement>currentDocument.getElementById("note-list-item-template");
   let clone = <HTMLElement>document.importNode(template.content, true);
   clone.querySelector(".title").appendChild(document.createTextNode(title));
   clone.querySelector(".body").appendChild(document.createTextNode(body));

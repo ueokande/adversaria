@@ -6,13 +6,13 @@ interface UserSettingsDialogElement extends DialogBaseElement {
 
 (function(): void {
 
-let currentDocument = (<any>document).currentScript.ownerDocument;
+let currentDocument = document.currentScript.ownerDocument;
 
 let prot = Object.create(DialogBaseElement.prototype);
 
 prot.createdCallback = function (): void {
   DialogBaseElement.prototype.createdCallback.call(this);
-  let template = currentDocument.getElementById("user-settings-dialog-contents-template");
+  let template = <HTMLTemplateElement>currentDocument.getElementById("user-settings-dialog-contents-template");
   let clone = <HTMLElement>document.importNode(template.content, true);
   this.content.appendChild(clone);
 

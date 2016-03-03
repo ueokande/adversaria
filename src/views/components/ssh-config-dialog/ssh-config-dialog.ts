@@ -10,13 +10,13 @@ interface SSHConfigDialogElement extends DialogBaseElement {
 
 (function(): any {
 
-let currentDocument = (<any>document).currentScript.ownerDocument;
+let currentDocument = document.currentScript.ownerDocument;
 
 let prot = Object.create(DialogBaseElement.prototype);
 
 prot.createdCallback = function (): void {
   DialogBaseElement.prototype.createdCallback.call(this);
-  let template = currentDocument.getElementById("ssh-config-dialog-contents-template");
+  let template = <HTMLTemplateElement>currentDocument.getElementById("ssh-config-dialog-contents-template");
   let clone = <HTMLElement>document.importNode(template.content, true);
   this.content.appendChild(clone);
 };

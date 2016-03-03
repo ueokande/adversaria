@@ -14,12 +14,12 @@ declare var DialogBaseElement: {
 
 (function(): any {
 
-let currentDocument = (<any>document).currentScript.ownerDocument;
+let currentDocument = document.currentScript.ownerDocument;
 
 let prot = Object.create(HTMLDialogElement.prototype);
 
 prot.createdCallback = function (): any {
-  let template = currentDocument.getElementById("dialog-base-template");
+  let template = <HTMLTemplateElement>currentDocument.getElementById("dialog-base-template");
   let clone = <HTMLElement>document.importNode(template.content, true);
   this.classList.add("dialog");
   this.appendChild(clone);
