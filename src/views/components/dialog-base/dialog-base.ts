@@ -5,7 +5,7 @@ interface DialogBaseElement extends HTMLDialogElement {
 }
 
 interface Window {
-  DialogBaseElement: DialogBaseElement;
+  DialogBaseElement: any;
 }
 
 declare var DialogBaseElement: {
