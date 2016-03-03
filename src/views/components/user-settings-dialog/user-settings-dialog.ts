@@ -1,4 +1,3 @@
-///<reference path="../../../../typings/user_defined/html_dialog_element.d.ts"/>
 ///<reference path="../dialog-base/dialog-base.ts"/>
 
 interface UserSettingsDialogElement extends DialogBaseElement {
@@ -7,13 +6,13 @@ interface UserSettingsDialogElement extends DialogBaseElement {
 
 (function(): void {
 
-let currentDocument = (<any>document).currentScript.ownerDocument;
+let currentDocument = document.currentScript.ownerDocument;
 
 let prot = Object.create(DialogBaseElement.prototype);
 
 prot.createdCallback = function (): void {
   DialogBaseElement.prototype.createdCallback.call(this);
-  let template = currentDocument.getElementById("user-settings-dialog-contents-template");
+  let template = <HTMLTemplateElement>currentDocument.getElementById("user-settings-dialog-contents-template");
   let clone = <HTMLElement>document.importNode(template.content, true);
   this.content.appendChild(clone);
 
@@ -33,7 +32,7 @@ Object.defineProperty(prot, "projectPath", {
   }
 });
 
-(<any>document).registerElement("adv-user-settings-dialog", {
+document.registerElement("adv-user-settings-dialog", {
   prototype: prot,
   extends: "dialog"
 });

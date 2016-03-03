@@ -1,4 +1,3 @@
-///<reference path="../../../../typings/user_defined/html_dialog_element.d.ts"/>
 ///<reference path="../dialog-base/dialog-base.ts"/>
 
 interface SSHConfigDialogElement extends DialogBaseElement {
@@ -11,13 +10,13 @@ interface SSHConfigDialogElement extends DialogBaseElement {
 
 (function(): any {
 
-let currentDocument = (<any>document).currentScript.ownerDocument;
+let currentDocument = document.currentScript.ownerDocument;
 
 let prot = Object.create(DialogBaseElement.prototype);
 
 prot.createdCallback = function (): void {
   DialogBaseElement.prototype.createdCallback.call(this);
-  let template = currentDocument.getElementById("ssh-config-dialog-contents-template");
+  let template = <HTMLTemplateElement>currentDocument.getElementById("ssh-config-dialog-contents-template");
   let clone = <HTMLElement>document.importNode(template.content, true);
   this.content.appendChild(clone);
 };
@@ -64,7 +63,7 @@ Object.defineProperty(prot, "authFromAgent", {
   }
 });
 
-(<any>document).registerElement("adv-ssh-config-dialog", {
+document.registerElement("adv-ssh-config-dialog", {
   prototype: prot,
   extends: "dialog"
 });

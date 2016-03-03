@@ -6,12 +6,12 @@ interface NoteViewElement extends HTMLElement {
 
 (function(): any {
 
-let currentDocument = (<any>document).currentScript.ownerDocument;
+let currentDocument = document.currentScript.ownerDocument;
 
 let prot = Object.create(HTMLElement.prototype);
 
 prot.createdCallback = function (): void {
-  let template = currentDocument.getElementById("note-view-template");
+  let template = <HTMLTemplateElement>currentDocument.getElementById("note-view-template");
   let clone = <HTMLElement>document.importNode(template.content, true);
   this.appendChild(clone);
 };
@@ -41,7 +41,7 @@ Object.defineProperty(prot, "path", {
   }
 });
 
-(<any>document).registerElement("adv-note-view", {
+document.registerElement("adv-note-view", {
   prototype: prot
 });
 

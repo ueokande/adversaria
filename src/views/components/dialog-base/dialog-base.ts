@@ -1,5 +1,3 @@
-///<reference path="../../../../typings/user_defined/html_dialog_element.d.ts"/>
-
 interface DialogBaseElement extends HTMLDialogElement {
   createdCallback: () => any;
   cancelable: boolean;
@@ -7,7 +5,7 @@ interface DialogBaseElement extends HTMLDialogElement {
 }
 
 interface Window {
-  DialogBaseElement: DialogBaseElement;
+  DialogBaseElement: any;
 }
 
 declare var DialogBaseElement: {
@@ -16,12 +14,12 @@ declare var DialogBaseElement: {
 
 (function(): any {
 
-let currentDocument = (<any>document).currentScript.ownerDocument;
+let currentDocument = document.currentScript.ownerDocument;
 
 let prot = Object.create(HTMLDialogElement.prototype);
 
 prot.createdCallback = function (): any {
-  let template = currentDocument.getElementById("dialog-base-template");
+  let template = <HTMLTemplateElement>currentDocument.getElementById("dialog-base-template");
   let clone = <HTMLElement>document.importNode(template.content, true);
   this.classList.add("dialog");
   this.appendChild(clone);
@@ -81,7 +79,7 @@ Object.defineProperty(prot, "cancelable", {
   }
 });
 
-window.DialogBaseElement = (<any>document).registerElement("adv-dialog-base", {
+window.DialogBaseElement = document.registerElement("adv-dialog-base", {
   prototype: prot,
   extends: "dialog"
 });

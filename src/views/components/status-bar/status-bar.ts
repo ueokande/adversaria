@@ -16,7 +16,7 @@ Object.defineProperty(prot, "text", {
   }
 });
 
-(<any>document).registerElement("adv-status-bar", {
+document.registerElement("adv-status-bar", {
   prototype: prot,
   extends: "p"
 });
