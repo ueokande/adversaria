@@ -79,7 +79,7 @@ Object.defineProperty(prot, "cancelable", {
   }
 });
 
-window.DialogBaseElement = (<any>document).registerElement("adv-dialog-base", {
+window.DialogBaseElement = document.registerElement("adv-dialog-base", {
   prototype: prot,
   extends: "dialog"
 });

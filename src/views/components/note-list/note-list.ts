@@ -33,7 +33,7 @@ prot.clearItems = function(): void {
   }
 };
 
-(<any>document).registerElement("adv-note-list", {
+document.registerElement("adv-note-list", {
   prototype: prot,
   extends: "ul"
 });

@@ -63,7 +63,7 @@ Object.defineProperty(prot, "authFromAgent", {
   }
 });
 
-(<any>document).registerElement("adv-ssh-config-dialog", {
+document.registerElement("adv-ssh-config-dialog", {
   prototype: prot,
   extends: "dialog"
 });

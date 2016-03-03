@@ -41,7 +41,7 @@ Object.defineProperty(prot, "path", {
   }
 });
 
-(<any>document).registerElement("adv-note-view", {
+document.registerElement("adv-note-view", {
   prototype: prot
 });
 

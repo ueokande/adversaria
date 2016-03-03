@@ -61,7 +61,7 @@ prot.setDirectoryTree = function(tree: {[key: string]: any}): any {
   setTree(this, tree, "");
 };
 
-(<any>document).registerElement("adv-navigator", {
+document.registerElement("adv-navigator", {
   prototype: prot,
   extends: "ul"
 });

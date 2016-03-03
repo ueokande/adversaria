@@ -32,7 +32,7 @@ Object.defineProperty(prot, "projectPath", {
   }
 });
 
-(<any>document).registerElement("adv-user-settings-dialog", {
+document.registerElement("adv-user-settings-dialog", {
   prototype: prot,
   extends: "dialog"
 });
