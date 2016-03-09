@@ -1,7 +1,7 @@
 import * as NodeGit from "nodegit";
 
 export default class GitRepository {
-  private cert: any;
+  private cred: any;
 
   constructor(private repositoryPath: string) {
   }
@@ -50,17 +50,17 @@ export default class GitRepository {
     });
   }
 
-  private setCredFromCallback(certCallback: Function): Promise<any> {
+  private setCredFromCallback(credCallback: Function): Promise<any> {
     let remote;
     return NodeGit.Repository.open(this.repositoryPath).then((repository) => {
       return repository.getRemote("origin");
     })
     .then((_remote) => {
       remote = _remote;
-      this.cert = certCallback;
+      this.cred = credCallback;
       return remote.connect(NodeGit.Enums.DIRECTION.FETCH, {
         certificateCheck: (): number => { return 1; },
-        credentials: certCallback
+        credentials: credCallback
       });
     });
   }
