@@ -33,3 +33,7 @@ export function useComponent(importPath: string,
 
   return;
 }
+
+export const sshKey = __dirname + "/testdata/ssh_key/id_rsa";
+export const sshPubKey = __dirname + "/testdata/ssh_key/id_rsa.pub";
+export const sshPassphrase = "passphrase";
