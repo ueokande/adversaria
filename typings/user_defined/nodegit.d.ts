@@ -3,4 +3,5 @@ declare module "nodegit" {
   var Signature: any;
   var Cred: any;
   var Enums: any;
+  var Clone: any;
 }
