@@ -25,6 +25,7 @@
   "devDependencies": {
     "bower": "^1.7.1",
     "chai": "^3.4.1",
+    "chai-as-promised": "^5.2.0",
     "chokidar": "^1.4.1",
     "del": "^2.2.0",
     "electron-connect": "^0.3.3",

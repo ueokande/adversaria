@@ -2,9 +2,12 @@ var remote = require('remote')
 var remoteConsole = remote.require('console')
 var ipc = require('ipc')
 var Mocha = require('mocha')
-var assert = require('chai').assert
+var chai = require('chai')
 var path = require('path')
 var glob = require("glob")
+
+chai.use(require("chai-as-promised"));
+var assert = chai.assert;
 
 console.log = function () {
   remoteConsole.log.apply(remoteConsole, arguments)
